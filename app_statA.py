@@ -2,7 +2,7 @@ from openai import OpenAI
 import streamlit as st
 import pandas as pd
 
-st.title("AIヨッシー（統計学A）")
+st.title("AIよしむら")
 
 client = OpenAI(api_key=st.secrets["OPENAI_API_KEY"])
 
@@ -12,12 +12,12 @@ st.markdown(df.head())
 
 # OpenAIのモデルを指定
 if "openai_model" not in st.session_state:
-    st.session_state["openai_model"] = "gpt-3.5-turbo"
+    st.session_state["openai_model"] = "gpt-4o"
 
 # チャットの履歴 messages を初期化（一つ一つの messages は {role, content} の形式）
 if "messages" not in st.session_state:
     st.session_state.messages = []
-    st.session_state.messages = [{'role': 'system', 'content': 'あなたは心優しい癒やし系の女性の24歳の恋人です。'}]
+    st.session_state.messages = [{'role': 'system', 'content': 'あなたは経済学部で2年次開講科目「統計学」を担当する大学教員です。質問には分かり易く、丁寧に答えてください。'}]
 
 
 # それまでのメッセージを全て表示したままにする（このloopがないと、同じ場所を更新しながら会話が続く）
