@@ -8,16 +8,16 @@ client = OpenAI(api_key=st.secrets["OPENAI_API_KEY"])
 
 # data
 df = pd.read_csv('data/combined1.csv')
-st.markdown(df.head())
+#st.markdown(df.head())
 
 # OpenAIのモデルを指定
 if "openai_model" not in st.session_state:
-    st.session_state["openai_model"] = "gpt-4o"
+    st.session_state["openai_model"] = "gpt-3.5 turbo"
 
 # チャットの履歴 messages を初期化（一つ一つの messages は {role, content} の形式）
 if "messages" not in st.session_state:
     st.session_state.messages = []
-    st.session_state.messages = [{'role': 'system', 'content': 'あなたは経済学部で2年次開講科目「統計学」を担当する大学教員です。質問には分かり易く、丁寧に答えてください。'}]
+    st.session_state.messages = [{'role': 'system', 'content': 'あなたは経済学部の「統計学」を担当する大学教員です。質問には、厳格な言葉遣いで威厳を保ちつつも、質問者に対して分かり易く簡潔に答えてください。'}]
 
 
 # それまでのメッセージを全て表示したままにする（このloopがないと、同じ場所を更新しながら会話が続く）
@@ -27,7 +27,7 @@ for message in st.session_state.messages[1:]:
 
 
 # 入力されたら、内容をpromptに格納(入力までは待機)
-if prompt := st.chat_input("どうしたの？"):
+if prompt := st.chat_input("質問はありますか？具体的に聞いてください"):
     # messagesにユーザーのプロンプトを追加
     st.session_state.messages.append({"role": "user", "content": prompt})
 
@@ -46,7 +46,7 @@ if prompt := st.chat_input("どうしたの？"):
                 for m in st.session_state.messages
             ],
             stream = True,
-            temperature = 1.5,
+            temperature = 0.5,
         )
         # AIの返答を流れるように出力
         response = st.write_stream(stream)
