@@ -2,9 +2,9 @@ from openai import OpenAI
 import streamlit as st
 import pandas as pd
 
-st.title("AIよしむら")
-
 client = OpenAI(api_key=st.secrets["OPENAI_API_KEY"])
+
+st.title("AIよしむら")
 
 # data
 df = pd.read_csv('data/combined1.csv')
@@ -15,11 +15,12 @@ data2 = data1.to_string()
 
 # template
 template = '''
-あなたは経済学部の「統計学」を担当する大学教員です。
+あなたは経済学部の2年次開講科目「統計学A」を担当する大学教員です。
 学生からの質問に答えてください。
 
 ### 条件
 - 質問には、厳格な言葉遣いで威厳を保ちつつも、質問者に分かり易く、簡潔に答えてください。
+- 全ての質問に対して、以下の事前資料の内容を厳密に参照した上で答えてください。
  
 ### 事前資料
 """__MSG__"""
