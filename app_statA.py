@@ -9,8 +9,8 @@ st.subheader("統計学（前半）に関する質問に答えます", divider='
 
 # data
 df = pd.read_csv('data/combined1.csv')
-#data1 = df["説明"]
-data1 = df["説明"][0:10]
+data1 = df["説明"]
+#data1 = df["説明"][0:10]
 data2 = data1.to_string()
 #st.markdown(df.head())
 
