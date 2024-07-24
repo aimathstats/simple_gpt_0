@@ -10,6 +10,18 @@ client = OpenAI(api_key=st.secrets["OPENAI_API_KEY"])
 df = pd.read_csv('data/combined1.csv')
 #st.markdown(df.head())
 
+# template
+template = '''
+あなたは経済学部の「統計学」を担当する大学教員です。
+学生からの質問に答えてください。
+
+### 条件
+- 質問には、厳格な言葉遣いで威厳を保ちつつも、質問者に分かり易く、簡潔に答えてください。
+ 
+### 事前資料
+"""__MSG__"""
+'''
+
 # OpenAIのモデルを指定
 if "openai_model" not in st.session_state:
     st.session_state["openai_model"] = "gpt-3.5-turbo"
@@ -18,7 +30,7 @@ if "openai_model" not in st.session_state:
 if "messages" not in st.session_state:
     st.session_state.messages = []
     st.session_state.messages = [{'role': 'system', 'content': 'あなたは経済学部の「統計学」を担当する大学教員です。質問には、厳格な言葉遣いで威厳を保ちつつも、質問者に対して分かり易く簡潔に答えてください。'}]
-
+    
 
 # それまでのメッセージを全て表示したままにする（このloopがないと、同じ場所を更新しながら会話が続く）
 for message in st.session_state.messages[1:]:
@@ -27,7 +39,7 @@ for message in st.session_state.messages[1:]:
 
 
 # 入力されたら、内容をpromptに格納(入力までは待機)
-if prompt := st.chat_input("質問はありますか？具体的に聞いてください"):
+if prompt := st.chat_input("質問はありますか？"):
     # messagesにユーザーのプロンプトを追加
     st.session_state.messages.append({"role": "user", "content": prompt})
 
