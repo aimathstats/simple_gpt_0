@@ -2,12 +2,12 @@ from openai import OpenAI
 import streamlit as st
 import pandas as pd
 
-
-
 st.title("AIヨッシー（統計学A）")
 
 client = OpenAI(api_key=st.secrets["OPENAI_API_KEY"])
 
+# data
+df = pd.read_csv('data/combined1.csv')
 
 # OpenAIのモデルを指定
 if "openai_model" not in st.session_state:
