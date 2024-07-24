@@ -4,7 +4,8 @@ import pandas as pd
 
 client = OpenAI(api_key=st.secrets["OPENAI_API_KEY"])
 
-st.title("AIよしむら（統計学）")
+st.title("AIむらよし")
+st.subheader("統計学（前半）に関する質問に答えます", divider='blue')
 
 # data
 df = pd.read_csv('data/combined1.csv')
@@ -79,3 +80,4 @@ if prompt := st.chat_input("質問はありますか？"):
     # messagesにAIの返答を格納
     st.session_state.messages.append({"role": "assistant", "content": response})
     #　ここで一旦終わり、入力待機となる
+
