@@ -12,7 +12,7 @@ df = pd.read_csv('data/combined1.csv')
 
 # OpenAIのモデルを指定
 if "openai_model" not in st.session_state:
-    st.session_state["openai_model"] = "gpt-3.5 turbo"
+    st.session_state["openai_model"] = "gpt-3.5-turbo"
 
 # チャットの履歴 messages を初期化（一つ一つの messages は {role, content} の形式）
 if "messages" not in st.session_state:
