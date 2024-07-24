@@ -8,6 +8,7 @@ client = OpenAI(api_key=st.secrets["OPENAI_API_KEY"])
 
 # data
 df = pd.read_csv('data/combined1.csv')
+st.markdown(df.head())
 
 # OpenAIのモデルを指定
 if "openai_model" not in st.session_state:
