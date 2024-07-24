@@ -8,6 +8,9 @@ client = OpenAI(api_key=st.secrets["OPENAI_API_KEY"])
 
 # data
 df = pd.read_csv('data/combined1.csv')
+#data1 = df["説明"]
+data1 = df["説明"][0:10]
+data2 = data1.to_string()
 #st.markdown(df.head())
 
 # template
@@ -22,6 +25,8 @@ template = '''
 """__MSG__"""
 '''
 
+template2 = template.replace('__MSG__', data2.replace('"', ''))
+
 # OpenAIのモデルを指定
 if "openai_model" not in st.session_state:
     st.session_state["openai_model"] = "gpt-3.5-turbo"
@@ -29,7 +34,7 @@ if "openai_model" not in st.session_state:
 # チャットの履歴 messages を初期化（一つ一つの messages は {role, content} の形式）
 if "messages" not in st.session_state:
     st.session_state.messages = []
-    st.session_state.messages = [{'role': 'system', 'content': 'あなたは経済学部の「統計学」を担当する大学教員です。質問には、厳格な言葉遣いで威厳を保ちつつも、質問者に対して分かり易く簡潔に答えてください。'}]
+    st.session_state.messages = [{'role': 'system', 'content': template2}]
     
 
 # それまでのメッセージを全て表示したままにする（このloopがないと、同じ場所を更新しながら会話が続く）
