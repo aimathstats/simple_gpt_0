@@ -5,7 +5,7 @@ import pandas as pd
 client = OpenAI(api_key=st.secrets["OPENAI_API_KEY"])
 
 st.title("AIよしむら")
-st.subheader("統計学（前半）に関する質問に答えます", divider='blue')
+st.subheader("統計学（前半）に関する質問に答えます")
 
 # data
 df = pd.read_csv('data/combined1.csv')
