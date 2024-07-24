@@ -1,10 +1,3 @@
-# -*- coding: utf-8 -*-
-"""
-Created on Wed Jul 24 11:32:14 2024
-
-@author: Arihiro Yoshimura
-"""
-
 from openai import OpenAI
 import streamlit as st
 
