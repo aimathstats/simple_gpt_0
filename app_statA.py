@@ -4,7 +4,7 @@ import pandas as pd
 
 client = OpenAI(api_key=st.secrets["OPENAI_API_KEY"])
 
-st.title("AI統計学")
+st.title("AIとうけいくん")
 st.subheader("統計学（前半）に関する質問に答えます")
 
 # data
