@@ -16,7 +16,7 @@ background_image = 'data/paw_figure1.png'
 page_bg_img = f'''
 <style>
 .stApp {{
-background-image: url("data:image/jpg;base64,{st.get_image_base64(background_image)}");
+background-image: url("data:image/png;base64,{st.get_image_base64(background_image)}");
 background-size: cover;
 background-repeat: no-repeat;
 background-attachment: fixed;
