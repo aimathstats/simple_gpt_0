@@ -7,6 +7,37 @@ client = OpenAI(api_key=st.secrets["OPENAI_API_KEY"])
 st.title("パウパトAI")
 st.subheader("パウパトについて何でも聞いてみよう！")
 
+
+############################################################################
+# 画像のパス
+background_image = 'data/paw_figure1.png'
+
+# カスタムCSSを使って背景画像を設定
+page_bg_img = f'''
+<style>
+.stApp {{
+background-image: url("data:image/jpg;base64,{st.get_image_base64(background_image)}");
+background-size: cover;
+background-repeat: no-repeat;
+background-attachment: fixed;
+}}
+</style>
+'''
+
+st.markdown(page_bg_img, unsafe_allow_html=True)
+
+# サンプルのタイトルとテキスト
+st.title("Background Image Example")
+st.write("このStreamlitアプリの背景に画像が設定されています。")
+
+# 画像をBase64エンコードする関数
+def get_image_base64(image_path):
+    import base64
+    with open(image_path, 'rb') as img_file:
+        b64_string = base64.b64encode(img_file.read()).decode('utf-8')
+    return b64_string
+############################################################################
+
 # data
 df = pd.read_csv('data/combined2.csv')
 data1 = df["説明"]
