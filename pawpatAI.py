@@ -41,8 +41,9 @@ st.markdown(page_bg_img, unsafe_allow_html=True)
 
 
 # data
-df = pd.read_csv('data/combined2.csv')
-data1 = df["説明"]
+df = pd.read_csv('data/paw_data.csv')
+data1 = df
+#data1 = df["説明"]
 #data1 = df["説明"][0:10]
 data2 = data1.to_string()
 #st.markdown(df.head())
@@ -54,9 +55,10 @@ template = '''
 質問者は基本的に未就学の子供なので、簡単で分かりやすい日本語で答えてください。
 
 ### 条件
-- 全ての質問に対して、返答内容に関する以下の詳細な「セリフ資料」を参照した上で、役割になりきって答えてください。
+- 全ての質問に対して、返答内容に関する以下の「資料」を参照した上で、役割になりきって答えてください。
+- キャラクターの名前を呼ばれたら、そのキャラクターのセリフを忠実に再現して下さい。そのキャラクターが言いそうなことを言ってください。
 
-### セリフ資料
+### 資料
 """__MSG__"""
 '''
 
