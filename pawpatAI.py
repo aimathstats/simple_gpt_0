@@ -9,6 +9,7 @@ st.subheader("パウパトについて何でも聞いてみよう！")
 
 
 ############################################################################
+import base64
 # 画像のパス
 background_image = 'data/paw_figure1.png'
 
@@ -32,10 +33,10 @@ st.write("このStreamlitアプリの背景に画像が設定されています�
 
 # 画像をBase64エンコードする関数
 def get_image_base64(image_path):
-    import base64
     with open(image_path, 'rb') as img_file:
         b64_string = base64.b64encode(img_file.read()).decode('utf-8')
     return b64_string
+    
 ############################################################################
 
 # data
