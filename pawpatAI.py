@@ -4,11 +4,11 @@ import pandas as pd
 
 client = OpenAI(api_key=st.secrets["OPENAI_API_KEY"])
 
-st.title("AIとうけいくん")
-st.subheader("統計学（前半）に関する質問に答えます")
+st.title("パウパトAI")
+st.subheader("パウパトについて何でも聞いてみよう！")
 
 # data
-df = pd.read_csv('data/combined1.csv')
+df = pd.read_csv('data/combined2.csv')
 data1 = df["説明"]
 #data1 = df["説明"][0:10]
 data2 = data1.to_string()
@@ -16,18 +16,10 @@ data2 = data1.to_string()
 
 # template
 template = '''
-あなたは大学経済学部の2年次開講科目「統計学」を担当する大学教員です。
-教員の個人設定として、男性32歳、教員歴は6年目の准教授です。研究テーマは計量経済学です。ゼミ内容は秘密とします。
-この講義に関する学生からの質問に答えてください。
+あなたは○○です。
 
 ### 条件
 - 全ての質問に対して、講義内容に関する以下の詳細な「授業資料」を参照した上で、正確に答えてください。
-- とりわけ成績評価に関する内容については「授業資料」を正確に参照して答えてください（小テスト・中間テスト・最終テストについて）。
-- 小テストは12回あり、合計で70%の配分です。中間テストは15％の配分、最終テストは15%の配分です。
-- 定期試験はありません。
-- 「授業資料」に無い内容を質問された場合、GPTで答えられる一般的な内容を答えてください。数値例などを用いた解答もしてください。
-- 教授らしく厳格な言葉遣いで、ただし質問者に分かり易く、簡潔に答えてください。乱暴な言葉遣いは絶対にしないでください。
-- 「授業資料」に無い内容で質問された場合、不正確な返答は控え、必ずシラバスを確認するよう答えてください。
 
 ### 授業資料
 """__MSG__"""
@@ -37,8 +29,8 @@ template = template.replace('__MSG__', data2.replace('"', ''))
 
 # OpenAIのモデルを指定
 if "openai_model" not in st.session_state:
-    st.session_state["openai_model"] = "gpt-3.5-turbo"
-    #st.session_state["openai_model"] = "gpt-4o-mini"
+    #st.session_state["openai_model"] = "gpt-3.5-turbo"
+    st.session_state["openai_model"] = "gpt-4o-mini"
 
 # チャットの履歴 messages を初期化（一つ一つの messages は {role, content} の形式）
 if "messages" not in st.session_state:
@@ -80,3 +72,4 @@ if prompt := st.chat_input("質問はありますか？"):
     # messagesにAIの返答を格納
     st.session_state.messages.append({"role": "assistant", "content": response})
     #　ここで一旦終わり、入力待機となる
+
