@@ -11,6 +11,7 @@ st.subheader("パウパトについて何でも聞いてみよう！")
 character = st.radio("キャラクター", ["ケント", "チェイス"], horizontal = True)
 
 #########################################
+
 user_input = st.text_area("テキストを入力してください", "Hello, Paw patrol!", height=200)
 voice = st.radio("voice", ["alloy", "echo", "fable", "onyx", "nova", "shimmer"], horizontal = True)
 
@@ -33,7 +34,9 @@ if st.button('音声合成'):
             st.error(f"エラーが発生しました: {e}")
     else:
         st.warning("テキストを入力してください。")
+
 ##############################################
+
 #DEFAULT_TEXT = """Hello, Paw patrol!"""
 #if "audio" not in st.session_state:
 #    st.session_state["audio"] = None
@@ -41,15 +44,15 @@ if st.button('音声合成'):
 #voice = st.radio("voice", ["alloy", "echo", "fable", "onyx", "nova", "shimmer"], horizontal = True)
 #st.audio("data/cat-purr.mp3", format="audio/mpeg", loop=True)
 
-def text_to_speech(text, voice):
-    #speech_file_path = Path("audio.mp3")
-    speech_file_path = Path("data/audio.mp3")
-    response = client.audio.speech.create(
-      model="tts-1",
-      voice=voice,
-      input=text
-    )
-    response.stream_to_file(speech_file_path)
+#def text_to_speech(text, voice):
+#    #speech_file_path = Path("audio.mp3")
+#    speech_file_path = Path("data/audio.mp3")
+#    response = client.audio.speech.create(
+#      model="tts-1",
+#      voice=voice,
+#      input=text
+#    )
+#    response.stream_to_file(speech_file_path)
 
 #with st.spinner("Generating your audio - this can take up to 30 seconds..."):
 #    st.session_state["audio"] = text_to_speech(text, voice)
