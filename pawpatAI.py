@@ -32,11 +32,11 @@ def text_to_speech(text, voice):
     )
     response.stream_to_file(speech_file_path)
 
-#with st.spinner("Generating your audio - this can take up to 30 seconds..."):
-#    st.session_state["audio"] = text_to_speech(text, voice)
-#    audio_file = open("data/audio.mp3", 'rb')
-#    audio_bytes = audio_file.read()
-#    st.audio(audio_bytes, format='audio/mpeg')
+with st.spinner("Generating your audio - this can take up to 30 seconds..."):
+    st.session_state["audio"] = text_to_speech(text, voice)
+    #audio_file = open("data/audio.mp3", 'rb')
+    #audio_bytes = audio_file.read()
+    #st.audio(audio_bytes, format='audio/mpeg')
 
 ############################################################################
 # 背景画像の選択とstreamlitによる表示
