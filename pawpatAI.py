@@ -4,8 +4,8 @@ import pandas as pd
 
 client = OpenAI(api_key=st.secrets["OPENAI_API_KEY"])
 
-#st.set_page_config(page_title="Paw patrol AI", page_icon="🎙") # icon=":material/pets:"
-st.set_page_config(page_title="Paw patrol AI", page_icon=":material/pets:") # icon=":material/pets:"
+st.set_page_config(page_title="Paw patrol AI", page_icon=":material/pet_supplies") # icon=":material/pets:"
+#st.set_page_config(page_title="Paw patrol AI", page_icon=":material/pets:") # icon=":material/pets:"
 st.title("パウパトAI")
 st.subheader("パウパトについて何でも聞いてみよう！")
 #character = st.radio("", ["みんな","ケント", "チェイス"], horizontal = True)
