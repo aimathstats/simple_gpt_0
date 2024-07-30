@@ -15,7 +15,7 @@ voice = "alloy"
 from audio_recorder_streamlit import audio_recorder
 audio_bytes = audio_recorder()
 if st.button("Save Recording"):
-    with open("speech.mmp3", "rb") as f:
+    with open("speech.mp3", "rb") as f:
         f.write(audio_bytes)
     st.success("Recording saved!")
 st.audio(audio_bytes)
