@@ -11,16 +11,18 @@ st.subheader("パウパトについて何でも聞いてみよう！")
 character = "ケント"
 voice = "alloy"
 
+
 # 音声入力
 from audio_recorder_streamlit import audio_recorder
 audio_bytes = audio_recorder()
 if st.button("Save Recording"):
-    with open("speech.mp3", "rb") as f:
+    with open("speech.wav", "wb") as f:
         f.write(audio_bytes)
     st.success("Recording saved!")
 st.audio(audio_bytes)
 
-audio_file2 = open("speech.mp3", "rb")
+# 音声認識
+audio_file2 = open("speech.wav", "rb")
 transcription = client.audio.transcriptions.create(
   model="whisper-1", 
   file=audio_file2, 
