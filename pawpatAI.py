@@ -9,6 +9,7 @@ st.set_page_config(page_title="Paw patrol AI",
 st.title("パウパトAI")
 st.subheader("パウパトについて何でも聞いてみよう！")
 character = st.radio("キャラクター", ["ケント", "チェイス"], horizontal = True)
+voice = "alloy"
 
 #########################################
 #user_input = st.text_area("テキストを入力してください", "Hello, Paw patrol!", height=200)
@@ -26,7 +27,7 @@ character = st.radio("キャラクター", ["ケント", "チェイス"], horizo
 #        output_file = "output.mp3"
 #        response.stream_to_file(output_file)
 #        # ユーザに音声ファイルをダウンロードするオプションを提供
-#        st.audio(output_file, autoplay = True)
+#        st.audio(output_file)
 #    except Exception as e:
 #        st.error(f"エラーが発生しました: {e}")
 #else:
