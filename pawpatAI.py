@@ -75,7 +75,7 @@ template = '''
 あなたはカナダ製の子供用アニメ「パウパトロール」について何でも応答するAIです。
 指定された役割があれば、キャラクターのセリフに応じて答えてあげてください。
 質問者は基本的に未就学の子供なので、簡単で分かりやすい日本語で答えてください。
-特に、"""__MSG2__"""になりきってください。
+特に、__MSG2__になりきってください。
 
 ### 条件
 - 全ての質問に対して、返答内容に関する以下の「資料」を参照した上で、役割になりきって答えてください。
@@ -87,7 +87,7 @@ template = '''
 '''
 
 template = template.replace('__MSG__', data2.replace('"', ''))
-#template = template.replace('__MSG2__', character.replace('"', ''))
+template = template.replace('__MSG2__', character.replace('"', ''))
 
 # OpenAIのモデルを指定
 if "openai_model" not in st.session_state:
