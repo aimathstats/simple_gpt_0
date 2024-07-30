@@ -179,7 +179,7 @@ if prompt := st.chat_input("質問はありますか？"):
         # AIの返答を流れるように出力
         response = st.write_stream(stream)
 
-        user_input = stream
+        user_input = response
         if user_input:
             try:
                 # 音声合成リクエストの送信
