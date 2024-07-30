@@ -11,6 +11,30 @@ st.subheader("パウパトについて何でも聞いてみよう！")
 
 character = st.radio("キャラクター", ["ケント", "チェイス"], horizontal = True)
 
+
+DEFAULT_TEXT = """Hello, Paw patrol!"""
+
+if "audio" not in st.session_state:
+    st.session_state["audio"] = None
+
+text = st.text_area("text", value = DEFAULT_TEXT, max_chars=4096, height=250)
+voice = st.radio("voice", ["alloy", "echo", "fable", "onyx", "nova", "shimmer"], horizontal = True)
+
+def text_to_speech(text, voice):
+    speech_file_path = Path("audio.mp3")
+    response = client.audio.speech.create(
+      model="tts-1",
+      voice=voice,
+      input=text
+    )
+    response.stream_to_file(speech_file_path)
+
+with st.spinner("Generating your audio - this can take up to 30 seconds..."):
+    st.session_state["audio"] = text_to_speech(text, voice)
+    audio_file = open("audio.mp3", 'rb')
+    audio_bytes = audio_file.read()
+    st.audio(audio_bytes, format='audio/mpeg')
+
 ############################################################################
 # 背景画像の選択とstreamlitによる表示
 import base64
