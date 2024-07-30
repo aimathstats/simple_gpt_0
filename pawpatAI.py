@@ -17,6 +17,7 @@ if st.button("Save Recording"):
     with open("recorded_audio.wav", "wb") as f:
         f.write(audio_bytes)
     st.success("Recording saved!")
+st.audio(audio_bytes)
 
 #########################################
 #user_input = st.text_area("テキストを入力してください", "Hello, Paw patrol!", height=200)
