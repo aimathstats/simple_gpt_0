@@ -8,7 +8,7 @@ st.set_page_config(page_title="Paw patrol AI",
                    page_icon="🎙")
 st.title("パウパトAI")
 st.subheader("パウパトについて何でも聞いてみよう！")
-character = st.radio("キャラクター", ["ケント", "チェイス"], horizontal = True)
+character = st.radio("", ["みんな","ケント", "チェイス"], horizontal = True)
 voice = "alloy"
 
 #########################################
