@@ -21,7 +21,8 @@ text = st.text_area("text", value = DEFAULT_TEXT, max_chars=4096, height=250)
 voice = st.radio("voice", ["alloy", "echo", "fable", "onyx", "nova", "shimmer"], horizontal = True)
 
 def text_to_speech(text, voice):
-    speech_file_path = Path("audio.mp3")
+    #speech_file_path = Path("audio.mp3")
+    speech_file_path = Path("data/cat-purr.mp3")
     response = client.audio.speech.create(
       model="tts-1",
       voice=voice,
