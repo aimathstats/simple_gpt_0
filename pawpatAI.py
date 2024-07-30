@@ -26,7 +26,6 @@ audio_file2 = open("speech.wav", "rb")
 transcription = client.audio.transcriptions.create(
   model="whisper-1", 
   file=audio_file2, 
-  response_format="text"
 )
 print(transcription.text)
 
