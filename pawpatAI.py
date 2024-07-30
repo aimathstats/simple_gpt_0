@@ -30,7 +30,7 @@ if st.button('音声合成'):
     if user_input:
         try:
             # OpenAIクライアントの初期化
-            client = OpenAI(api_key='your-api-key')
+            #client = OpenAI(api_key='your-api-key')
 
             # 音声合成リクエストの送信
             response = client.audio.speech.create(
