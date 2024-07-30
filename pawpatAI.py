@@ -192,7 +192,7 @@ if prompt := st.chat_input("質問はありますか？"):
                 output_file = "output.mp3"
                 response.stream_to_file(output_file)
                 # ユーザに音声ファイルをダウンロードするオプションを提供
-                st.audio(output_file)
+                st.audio(output_file, autoplay=True)
             except Exception as e:
                 st.error(f"エラーが発生しました: {e}")
         else:
