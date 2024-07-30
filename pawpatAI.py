@@ -20,7 +20,10 @@ def transcribe_audio_to_text(audio_bytes):
         temp_file.write(audio_bytes)
         temp_file.flush()
         with open(temp_file.name, "rb") as audio_file:
-            response = client.audio.transcriptions.create("whisper-1", audio_file)
+            response = client.audio.transcriptions.create(
+                model="whisper-1", 
+                file=audio_file, 
+            )
     return response.text
 
 audio_bytes = audio_recorder(pause_threshold=30)
