@@ -184,14 +184,14 @@ if prompt := st.chat_input("質問はありますか？"):
         if user_input:
             try:
                 # 音声合成リクエストの送信
-                response = client.audio.speech.create(
+                response_audio = client.audio.speech.create(
                     model="tts-1",
                     voice=voice,
                     input=user_input,
                 )
                 # 結果をファイルに保存
                 output_file = "output.mp3"
-                response.stream_to_file(output_file)
+                response_audio.stream_to_file(output_file)
                 # ユーザに音声ファイルをダウンロードするオプションを提供
                 st.audio(output_file, autoplay = True)
             except Exception as e:
