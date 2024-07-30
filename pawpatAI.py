@@ -15,10 +15,18 @@ voice = "alloy"
 from audio_recorder_streamlit import audio_recorder
 audio_bytes = audio_recorder()
 if st.button("Save Recording"):
-    with open("recorded_audio.wav", "wb") as f:
+    with open("speech.mmp3", "rb") as f:
         f.write(audio_bytes)
     st.success("Recording saved!")
 st.audio(audio_bytes)
+
+audio_file2 = open("speech.mp3", "rb")
+transcription = client.audio.transcriptions.create(
+  model="whisper-1", 
+  file=audio_file2, 
+  response_format="text"
+)
+print(transcription.text)
 
 #########################################
 #user_input = st.text_area("テキストを入力してください", "Hello, Paw patrol!", height=200)
