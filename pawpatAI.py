@@ -69,7 +69,7 @@ template = '''
 '''
 
 template = template.replace('__MSG__', data2.replace('"', ''))
-template = template.replace('__MSG2__', character.replace('"', ''))
+#template = template.replace('__MSG2__', character.replace('"', ''))
 
 # OpenAIのモデルを指定
 if "openai_model" not in st.session_state:
