@@ -27,7 +27,7 @@ transcription = client.audio.transcriptions.create(
   model="whisper-1", 
   file=audio_file2, 
 )
-print(transcription.text)
+st.markdown(transcription.text)
 
 #########################################
 #user_input = st.text_area("テキストを入力してください", "Hello, Paw patrol!", height=200)
