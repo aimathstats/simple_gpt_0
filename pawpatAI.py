@@ -11,6 +11,7 @@ st.subheader("パウパトについて何でも聞いてみよう！")
 character = "ケント"
 voice = "alloy"
 
+# 音声入力
 from audio_recorder_streamlit import audio_recorder
 audio_bytes = audio_recorder()
 if st.button("Save Recording"):
