@@ -4,7 +4,7 @@ import pandas as pd
 
 client = OpenAI(api_key=st.secrets["OPENAI_API_KEY"])
 
-st.set_page_config(page_title="パうパトAI",
+st.set_page_config(page_title="Paw patrol AI",
                    page_icon="🎙")
 st.title("パウパトAI")
 st.subheader("パウパトについて何でも聞いてみよう！")
