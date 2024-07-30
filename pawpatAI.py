@@ -11,6 +11,9 @@ st.subheader("パウパトについて何でも聞いてみよう！")
 character = "ケント"
 voice = "alloy"
 
+from audio_recorder_streamlit import audio_recorder
+audio_bytes = audio_recorder()
+
 #########################################
 #user_input = st.text_area("テキストを入力してください", "Hello, Paw patrol!", height=200)
 #voice = st.radio("voice", ["alloy", "echo", "fable", "onyx", "nova", "shimmer"], horizontal = True)
