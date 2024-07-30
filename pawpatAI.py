@@ -10,7 +10,7 @@ st.subheader("パウパトについて何でも聞いてみよう！")
 #character = st.radio("", ["みんな","ケント", "チェイス"], horizontal = True)
 character = "ケント"
 voice = "alloy"
-
+from audio_recorder_streamlit import audio_recorder
 from tempfile import NamedTemporaryFile
 
 def transcribe_audio_to_text(audio_bytes):
