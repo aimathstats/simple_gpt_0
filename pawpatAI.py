@@ -9,6 +9,8 @@ st.set_page_config(page_title="パうパトAI",
 st.title("パウパトAI")
 st.subheader("パウパトについて何でも聞いてみよう！")
 
+character = st.radio("キャラクター", ["ケント", "チェイス"], horizontal = True)
+
 ############################################################################
 # 背景画像の選択とstreamlitによる表示
 import base64
