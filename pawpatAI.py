@@ -22,20 +22,9 @@ voice = st.radio("voice", ["alloy", "echo", "fable", "onyx", "nova", "shimmer"],
 
 st.audio("data/cat-purr.mp3", format="audio/mpeg", loop=True)
 
-from pathlib import Path
-#from openai import OpenAI
-#client = OpenAI()
-speech_file_path = Path(__file__).parent / "speech.mp3"
-response = client.audio.speech.create(
-  model="tts-1",
-  voice="alloy",
-  input="Today is a wonderful day to build something people love!"
-)
-response.stream_to_file(speech_file_path)
-
 def text_to_speech(text, voice):
     #speech_file_path = Path("audio.mp3")
-    speech_file_path = Path("data/cat-purr.mp3")
+    speech_file_path = Path("data/audio.mp3")
     response = client.audio.speech.create(
       model="tts-1",
       voice=voice,
@@ -45,7 +34,7 @@ def text_to_speech(text, voice):
 
 #with st.spinner("Generating your audio - this can take up to 30 seconds..."):
 #    st.session_state["audio"] = text_to_speech(text, voice)
-#    audio_file = open("audio.mp3", 'rb')
+#    audio_file = open("data/audio.mp3", 'rb')
 #    audio_bytes = audio_file.read()
 #    st.audio(audio_bytes, format='audio/mpeg')
 
