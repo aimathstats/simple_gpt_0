@@ -26,7 +26,7 @@ def transcribe_audio_to_text(audio_bytes):
             )
     return response.text
 
-audio_bytes = audio_recorder(pause_threshold=3.0, auto_start = True)
+audio_bytes = audio_recorder(pause_threshold=5.0)
 if audio_bytes:
     transcript = transcribe_audio_to_text(audio_bytes)
     st.write("Transcribed Text:", transcript)
