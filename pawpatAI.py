@@ -12,34 +12,35 @@ character = "ケント"
 voice = "alloy"
 
 ######################################
-from audio_recorder_streamlit import audio_recorder
-from tempfile import NamedTemporaryFile
+# 音声入力
+#from audio_recorder_streamlit import audio_recorder
+#from tempfile import NamedTemporaryFile
 
-def transcribe_audio_to_text(audio_bytes):
-    with NamedTemporaryFile(delete=True, suffix=".wav") as temp_file:
-        temp_file.write(audio_bytes)
-        temp_file.flush()
-        with open(temp_file.name, "rb") as audio_file:
-            response = client.audio.transcriptions.create(
-                model="whisper-1", 
-                file=audio_file, 
-            )
-    return response.text
+#def transcribe_audio_to_text(audio_bytes):
+#    with NamedTemporaryFile(delete=True, suffix=".wav") as temp_file:
+#        temp_file.write(audio_bytes)
+#        temp_file.flush()
+#        with open(temp_file.name, "rb") as audio_file:
+#            response = client.audio.transcriptions.create(
+#                model="whisper-1", 
+#                file=audio_file, 
+#            )
+#    return response.text
 
-audio_bytes = audio_recorder()
-if audio_bytes:
-    transcript = transcribe_audio_to_text(audio_bytes)
-    st.write("Transcribed Text:", transcript)
+#audio_bytes = audio_recorder()
+#if audio_bytes:
+#    transcript = transcribe_audio_to_text(audio_bytes)
+#    st.write("Transcribed Text:", transcript)
 
 ########################################
 # 音声入力
-#from audio_recorder_streamlit import audio_recorder
-#audio_bytes = audio_recorder()
-#if st.button("Save Recording"):
-#    with open("speech.wav", "wb") as f:
-#        f.write(audio_bytes)
-#    st.success("Recording saved!")
-#st.audio(audio_bytes)
+from audio_recorder_streamlit import audio_recorder
+audio_bytes = audio_recorder()
+if st.button("Save Recording"):
+    with open("speech.wav", "wb") as f:
+        f.write(audio_bytes)
+    st.success("Recording saved!")
+st.audio(audio_bytes)
 
 # 音声認識
 #audio_file2 = open("speech.wav", "rb")
