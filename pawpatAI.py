@@ -148,7 +148,7 @@ if "temperature" not in st.session_state:
 
 
 # 入力（音声/テキスト）
-col1, col2 = st.columns(3)
+col1, col2 = st.columns(2)
 with col1:
     prompt = st.chat_input("しつもんは？")
 with col2:
