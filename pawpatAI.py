@@ -6,7 +6,7 @@ from audio_recorder_streamlit import audio_recorder
 client = OpenAI(api_key=st.secrets["OPENAI_API_KEY"])
 
 st.set_page_config(page_title="Paw patrol AI", page_icon=":material/pets:")
-st.title("パウパトAI")
+st.title("パウパトゲーム")
 st.subheader("パウパトについてなんでもきいてみよう！")
 #character = st.radio("", ["みんな","ケント", "チェイス"], horizontal = True)
 #character = "ケント"
