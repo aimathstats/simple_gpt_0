@@ -27,21 +27,18 @@ def audio_to_text(audio_bytes):
     )
     return transcript.text
 
-audio_bytes = audio_recorder(
-    text="click and speak>>>",
-    recording_color="#e8b62c", neutral_color="#6aa36f", icon_name="microphone-lines", icon_size="3x",
-    pause_threshold=4.0,
-    sample_rate=41_000
-)
+#audio_bytes = audio_recorder(
+#    text="click and speak>>>",
+#    recording_color="#e8b62c", neutral_color="#6aa36f", icon_name="microphone-lines", icon_size="3x",
+#    pause_threshold=4.0,
+#    sample_rate=41_000
+#)
 
-if audio_bytes:
-    st.audio(audio_bytes, format="audio/wav")
-    write_audio_file("recorded_audio.wav", audio_bytes)
-    transcript = client.audio.transcriptions.create(
-        model="whisper-1",
-        file=open("recorded_audio.wav", "rb"),
-    )
-    st.text(transcript.text)
+#if audio_bytes:
+#    st.audio(audio_bytes, format="audio/wav")
+#    write_audio_file("recorded_audio.wav", audio_bytes)
+#    transcript = client.audio.transcriptions.create(model="whisper-1", file=open("recorded_audio.wav", "rb"))
+#    st.text(transcript.text)
 
 ######################################
 # 音声入力test
@@ -154,14 +151,44 @@ for message in st.session_state.messages[1:]:
         st.markdown(message["content"]) # 表示する（一瞬ですべて書き下す）
 
 
-# 入力されたら、内容をpromptに格納(入力までは待機)
-if prompt := st.chat_input("質問はありますか？"):
+# modification
+prompt = st.chat_input("質問はありますか？")
+
+audio_bytes = audio_recorder(
+    text="<<<Recording ends,click again or remain silent for two seconds.>>>",
+    recording_color="#e8b62c",
+    neutral_color="#2EF218",
+    icon_name="microphone-lines",
+    icon_size="4x",
+    pause_threshold=2.0,
+    sample_rate=41_000
+)
+
+# 音声入力がある場合、テキストに変換
+if audio_bytes:
+    audio_transcript = audio_to_text(audio_bytes)
+    if audio_transcript:
+        st.session_state.audio_transcript = audio_transcript
+        #st.write("Transcribed text: ", audio_transcript)
+
+# テキスト入力がある場合、音声入力をリセット
+if prompt and 'audio_transcript' in st.session_state:
+    del st.session_state.audio_transcript
+
+# 使用する入力を決定
+input_text = st.session_state.audio_transcript if 'audio_transcript' in st.session_state else prompt
+
+# old codes
+#if prompt := st.chat_input("質問はありますか？"):
+if input_text:
     # messagesにユーザーのプロンプトを追加
-    st.session_state.messages.append({"role": "user", "content": prompt})
+    #st.session_state.messages.append({"role": "user", "content": prompt})
+    st.session_state.messages.append({"role": "user", "content": input_text})
 
     # ユーザーのアイコンで、promptをそのまま表示
     with st.chat_message("user"):
-        st.markdown(prompt)
+        #st.markdown(prompt)
+        st.markdown(input_text)
 
     # AIのアイコンで
     with st.chat_message("assistant"):
