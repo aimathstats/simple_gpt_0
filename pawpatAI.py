@@ -140,6 +140,12 @@ if "messages" not in st.session_state:
 #    with st.chat_message(message["role"]):
 #        st.markdown(message["content"]) # 表示する（一瞬ですべて書き下す）
 
+# テンパレチャーと音声選択の設定
+if "temperature" not in st.session_state:
+    st.session_state.temperature = 0.5
+temperature = st.slider("Temperature", 0.0, 1.0, st.session_state.temperature)
+
+
 # input（音声かテキスト）
 prompt = st.chat_input("しつもんは？")
 
