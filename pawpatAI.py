@@ -13,6 +13,8 @@ voice = "alloy"
 
 
 ###
+from audio_recorder_streamlit import audio_recorder
+
 def write_audio_file(file_path, audio_bytes):
     with open(file_path, "wb") as audio_file:
         audio_file.write(audio_bytes)
