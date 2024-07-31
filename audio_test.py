@@ -2,7 +2,7 @@ import streamlit as st
 from audio_recorder_streamlit import audio_recorder
 from openai import OpenAI
 import os
-client = OpenAI(api_key=os.getenv("OPENAI_API_KEY"))
+client = OpenAI(api_key=st.secrets["OPENAI_API_KEY"])
 
 def write_audio_file(file_path, audio_bytes):
     with open(file_path, "wb") as audio_file:
