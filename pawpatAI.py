@@ -36,10 +36,10 @@ voice = "alloy"
 # 音声入力
 from audio_recorder_streamlit import audio_recorder
 audio_bytes = audio_recorder()
-if st.button("Save Recording"):
-    with open("speech.wav", "wb") as f:
-        f.write(audio_bytes)
-    st.success("Recording saved!")
+#if st.button("Save Recording"):
+#    with open("speech.wav", "wb") as f:
+#        f.write(audio_bytes)
+#    st.success("Recording saved!")
 st.audio(audio_bytes)
 
 # 音声認識
