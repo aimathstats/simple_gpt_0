@@ -149,16 +149,16 @@ if "temperature" not in st.session_state:
 
 # 入力（音声/テキスト）
 col1, col2 = st.columns(2)
-with col2:
-    prompt = st.chat_input("しつもんは？")
 with col1:
     audio_bytes = audio_recorder(
-    text="", 
+    text="しつもんは？", 
     recording_color="#f21835", #recording_color="#e8b62c",
     neutral_color="#2EF218",
-    icon_name="microphone-lines", icon_size="3x",
+    icon_name="microphone", icon_size="2x",
     pause_threshold=5.0, sample_rate=41_000
 )
+with col2:
+    prompt = st.chat_input("しつもんは？")
 
 #with st.container():
 #    prompt = st.chat_input("しつもんは？")
