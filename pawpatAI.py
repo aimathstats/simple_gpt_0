@@ -7,7 +7,7 @@ client = OpenAI(api_key=st.secrets["OPENAI_API_KEY"])
 
 st.set_page_config(page_title="Paw patrol AI", page_icon=":material/pets:")
 st.title("パウパトAI")
-st.subheader("パウパトについて何でも聞いてみよう！")
+st.subheader("パウパトについてなんでもきいてみよう！")
 #character = st.radio("", ["みんな","ケント", "チェイス"], horizontal = True)
 character = "ケント"
 voice = "alloy"
@@ -82,16 +82,12 @@ def audio_to_text(audio_bytes):
 # 背景画像の選択とstreamlitによる表示
 import base64
 
-# 画像のパス
-background_image = 'data/paw_figure1.png'
-
-# 画像をBase64エンコードする関数
 def get_image_base64(image_path):
     with open(image_path, 'rb') as img_file:
         b64_string = base64.b64encode(img_file.read()).decode('utf-8')
     return b64_string
 
-# 画像をBase64エンコード
+background_image = 'data/paw_figure1.png'
 base64_image = get_image_base64(background_image)
 
 # カスタムCSSを使って背景画像を設定
@@ -105,8 +101,6 @@ background-attachment: fixed;
 }}
 </style>
 '''
-
-# カスタムCSSを挿入
 st.markdown(page_bg_img, unsafe_allow_html=True)
 ############################################################################
 
@@ -128,9 +122,7 @@ template = '''
 ### 資料
 """__MSG__"""
 '''
-
 #特に、__MSG2__になりきってください。
-
 template = template.replace('__MSG__', data2.replace('"', ''))
 #template = template.replace('__MSG2__', character.replace('"', ''))
 
@@ -144,22 +136,18 @@ if "messages" not in st.session_state:
     st.session_state.messages = []
     st.session_state.messages = [{'role': 'system', 'content': template}]
 
-
 # それまでのメッセージを全て表示したままにする（このloopがないと、同じ場所を更新しながら会話が続く）
 #for message in st.session_state.messages[1:]:
 #    with st.chat_message(message["role"]):
 #        st.markdown(message["content"]) # 表示する（一瞬ですべて書き下す）
 
-
-# modification
-prompt = st.chat_input("質問はありますか？")
+# input（音声かテキスト）
+prompt = st.chat_input("しつもんは？")
 
 audio_bytes = audio_recorder(
-    text="<<<ここをおして、はなしてね>>>",
-    recording_color="#e8b62c",
-    neutral_color="#2EF218",
-    icon_name="microphone-lines",
-    icon_size="4x",
+    text="ここをおして、はなして",
+    recording_color="#e8b62c", neutral_color="#2EF218",
+    icon_name="microphone-lines", icon_size="4x",
     pause_threshold=4.0,
     sample_rate=41_000
 )
@@ -169,17 +157,14 @@ if audio_bytes:
     audio_transcript = audio_to_text(audio_bytes)
     if audio_transcript:
         st.session_state.audio_transcript = audio_transcript
-        #st.write("Transcribed text: ", audio_transcript)
 
 # テキスト入力がある場合、音声入力をリセット
 if prompt and 'audio_transcript' in st.session_state:
     del st.session_state.audio_transcript
 
-# 使用する入力を決定
 input_text = st.session_state.audio_transcript if 'audio_transcript' in st.session_state else prompt
 
 # old codes
-#if prompt := st.chat_input("質問はありますか？"):
 if input_text:
     # messagesにユーザーのプロンプトを追加
     #st.session_state.messages.append({"role": "user", "content": prompt})
