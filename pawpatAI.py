@@ -154,6 +154,7 @@ for message in st.session_state.messages[1:]:
 # modification
 prompt = st.chat_input("質問はありますか？")
 
+audio_bytes = []
 audio_bytes = audio_recorder(
     text="<<<ここをおして、はなしてね>>>",
     recording_color="#e8b62c",
