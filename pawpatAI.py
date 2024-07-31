@@ -151,7 +151,7 @@ if "temperature" not in st.session_state:
 col1, col2 = st.columns(2)
 with col1:
     audio_bytes = audio_recorder(
-    text="しつもんは？", 
+#    text="しつもんは？", 
     recording_color="#f21835", #recording_color="#e8b62c",
     neutral_color="#2EF218",
     icon_name="microphone", icon_size="2x",
