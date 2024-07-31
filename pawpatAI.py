@@ -12,7 +12,6 @@ st.title("パウパトAI")
 character = "ケント"
 voice = "alloy"
 
-
 #######################################################
 # 音声入力と音声認識（with whisper）
 def write_audio_file(file_path, audio_bytes):
@@ -145,13 +144,11 @@ if "messages" not in st.session_state:
 prompt = st.chat_input("しつもんは？")
 
 audio_bytes = audio_recorder(
-    text="ここをおして、しつもんしてね",
-    #recording_color="#e8b62c", 
-    recording_color="#f2186c",
+    text="ここをおして、しつもんしてね", 
+    recording_color="#f21835", #recording_color="#e8b62c",
     neutral_color="#2EF218",
     icon_name="microphone-lines", icon_size="4x",
-    pause_threshold=4.0,
-    sample_rate=41_000
+    pause_threshold=4.0, sample_rate=41_000
 )
 
 # 音声入力がある場合、テキストに変換
