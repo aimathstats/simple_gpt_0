@@ -4,15 +4,16 @@ from openai import OpenAI
 import os
 client = OpenAI(api_key=st.secrets["OPENAI_API_KEY"])
 
+###########################################
+# 画像生成（DALL-E-3）
 # Streamlit UI
-st.title("😱DALL-E 3 画像生成")
+st.title("画像生成AI")
 
 # ユーザー入力
-prompt = st.text_input("画像の説明を入力してください（例：'a white siamese cat'）")
+prompt = st.text_input("作りたい画像の説明をかいて")
 
-if st.button("画像生成"):
+if st.button("生成"):
     if prompt:
-        # APIを呼び出して画像を生成
         response = client.images.generate(
             model="dall-e-3",
             prompt=prompt,
@@ -21,13 +22,11 @@ if st.button("画像生成"):
             n=1
         )
 
-        # 生成された画像のURLを取得
+        # 生成された画像のURLを取得して表示
         image_url = response.data[0].url
-
-        # 画像を表示
         st.image(image_url)
     else:
-        st.warning("画像の説明を入力してください。")
+        st.warning("画像の説明を入力して")
 
 #########################################
 picture = st.camera_input("Take a picture")
