@@ -100,7 +100,7 @@ background-attachment: fixed;
 }}
 </style>
 '''
-background-image: url("data:image/png;base64,{base64_image}");
+#background-image: url("data:image/png;base64,{base64_image}");
 st.markdown(page_bg_img, unsafe_allow_html=True)
 ############################################################################
 
