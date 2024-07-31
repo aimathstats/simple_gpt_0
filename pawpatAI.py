@@ -191,7 +191,7 @@ if input_text:
                 for m in st.session_state.messages
             ],
             stream = True,
-            temperature = 0.5,
+            temperature = st.session_state.temperature,
         )
         # AIの返答を流れるように出力
         response = st.write_stream(stream)
