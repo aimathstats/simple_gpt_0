@@ -146,7 +146,7 @@ if "messages" not in st.session_state:
 
 
 # それまでのメッセージを全て表示したままにする（このloopがないと、同じ場所を更新しながら会話が続く）
-for message in st.session_state.messages[1:]:
+for message in st.session_state.messages:
     with st.chat_message(message["role"]):
         st.markdown(message["content"]) # 表示する（一瞬ですべて書き下す）
 
