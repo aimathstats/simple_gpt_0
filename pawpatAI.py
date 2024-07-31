@@ -148,15 +148,24 @@ if "temperature" not in st.session_state:
 
 
 # 入力（音声/テキスト）
-prompt = st.chat_input("しつもんは？")
+with st.container():
+    prompt = st.chat_input("しつもんは？")
+    audio_bytes = audio_recorder(
+        text="マイクをおして、しつもんしてね", 
+        recording_color="#f21835", #recording_color="#e8b62c",
+        neutral_color="#2EF218",
+        icon_name="microphone-lines", icon_size="5x",
+        pause_threshold=5.0, sample_rate=41_000
+    )
 
-audio_bytes = audio_recorder(
-    text="マイクをおして、しつもんしてね", 
-    recording_color="#f21835", #recording_color="#e8b62c",
-    neutral_color="#2EF218",
-    icon_name="microphone-lines", icon_size="5x",
-    pause_threshold=5.0, sample_rate=41_000
-)
+#prompt = st.chat_input("しつもんは？")
+#audio_bytes = audio_recorder(
+#    text="マイクをおして、しつもんしてね", 
+#    recording_color="#f21835", #recording_color="#e8b62c",
+#    neutral_color="#2EF218",
+#    icon_name="microphone-lines", icon_size="5x",
+#    pause_threshold=5.0, sample_rate=41_000
+#)
 
 # 音声入力がある場合、テキストに変換
 if audio_bytes:
