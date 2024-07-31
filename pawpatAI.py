@@ -94,7 +94,7 @@ page_bg_img = f'''
 <style>
 .stApp {{
 background-image: url("data:image/png;base64,{base64_image}");
-background-size: contain;
+background-size: auto;
 background-repeat: no-repeat;
 background-attachment: fixed;
 }}
