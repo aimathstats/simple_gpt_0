@@ -11,7 +11,7 @@ st.subheader("パウパトについて何でも聞いてみよう！")
 character = "ケント"
 voice = "alloy"
 
-
+######################################
 from audio_recorder_streamlit import audio_recorder
 from tempfile import NamedTemporaryFile
 
@@ -26,30 +26,28 @@ def transcribe_audio_to_text(audio_bytes):
             )
     return response.text
 
-audio_bytes = audio_recorder(pause_threshold=5.0)
+audio_bytes = audio_recorder()
 if audio_bytes:
     transcript = transcribe_audio_to_text(audio_bytes)
     st.write("Transcribed Text:", transcript)
 
-
-
-
+########################################
 # 音声入力
-from audio_recorder_streamlit import audio_recorder
-audio_bytes = audio_recorder()
-if st.button("Save Recording"):
-    with open("speech.wav", "wb") as f:
-        f.write(audio_bytes)
-    st.success("Recording saved!")
-st.audio(audio_bytes)
+#from audio_recorder_streamlit import audio_recorder
+#audio_bytes = audio_recorder()
+#if st.button("Save Recording"):
+#    with open("speech.wav", "wb") as f:
+#        f.write(audio_bytes)
+#    st.success("Recording saved!")
+#st.audio(audio_bytes)
 
 # 音声認識
-audio_file2 = open("speech.wav", "rb")
-transcription = client.audio.transcriptions.create(
-  model="whisper-1", 
-  file=audio_file2, 
-)
-st.markdown(transcription.text)
+#audio_file2 = open("speech.wav", "rb")
+#transcription = client.audio.transcriptions.create(
+#  model="whisper-1", 
+#  file=audio_file2, 
+#)
+#st.markdown(transcription.text)
 
 #########################################
 #user_input = st.text_area("テキストを入力してください", "Hello, Paw patrol!", height=200)
