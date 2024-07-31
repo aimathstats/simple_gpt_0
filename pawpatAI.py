@@ -19,6 +19,14 @@ def write_audio_file(file_path, audio_bytes):
     with open(file_path, "wb") as audio_file:
         audio_file.write(audio_bytes)
 
+def audio_to_text(audio_bytes):
+    write_audio_file("recorded_audio.wav", audio_bytes)
+    transcript = client.audio.transcriptions.create(
+        model="whisper-1",
+        file=open("recorded_audio.wav", "rb"),
+    )
+    return transcript.text
+
 audio_bytes = audio_recorder(
     text="click and speak>>>",
     recording_color="#e8b62c", neutral_color="#6aa36f", icon_name="microphone-lines", icon_size="3x",
