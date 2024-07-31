@@ -6,10 +6,7 @@ client = OpenAI(api_key=st.secrets["OPENAI_API_KEY"])
 
 ###########################################
 # 画像生成（DALL-E-3）
-# Streamlit UI
 st.title("画像生成AI")
-
-# ユーザー入力
 prompt = st.text_input("作りたい画像の説明をかいて")
 
 if st.button("生成"):
