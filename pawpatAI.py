@@ -7,9 +7,9 @@ client = OpenAI(api_key=st.secrets["OPENAI_API_KEY"])
 
 st.set_page_config(page_title="Paw patrol AI", page_icon=":material/pets:")
 st.title("パウパトAI")
-#st.subheader("パウパトについてなんでもきいてみよう！")
+st.subheader("パウパトについてなんでもきいてみよう！")
 #character = st.radio("", ["みんな","ケント", "チェイス"], horizontal = True)
-character = "ケント"
+#character = "ケント"
 voice = "alloy"
 
 #######################################################
@@ -140,22 +140,22 @@ if "messages" not in st.session_state:
 #    with st.chat_message(message["role"]):
 #        st.markdown(message["content"]) # 表示する（一瞬ですべて書き下す）
 
-# テンパレチャーと音声選択の設定
+# temperatureの設定とスライダー
 if "temperature" not in st.session_state:
     st.session_state.temperature = 0.5
     temperature = st.session_state.temperature
 #temperature = st.slider("Temperature", 0.0, 1.0, st.session_state.temperature)
 
 
-# input（音声かテキスト）
+# 入力（音声/テキスト）
 prompt = st.chat_input("しつもんは？")
 
 audio_bytes = audio_recorder(
-    text="ここをおして、しつもんしてね", 
+    text="マイクをおしてね", 
     recording_color="#f21835", #recording_color="#e8b62c",
     neutral_color="#2EF218",
     icon_name="microphone-lines", icon_size="4x",
-    pause_threshold=4.0, sample_rate=41_000
+    pause_threshold=5.0, sample_rate=41_000
 )
 
 # 音声入力がある場合、テキストに変換
