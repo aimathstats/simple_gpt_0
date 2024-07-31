@@ -1,6 +1,7 @@
 from openai import OpenAI
 import streamlit as st
 import pandas as pd
+from audio_recorder_streamlit import audio_recorder
 
 client = OpenAI(api_key=st.secrets["OPENAI_API_KEY"])
 
@@ -12,19 +13,15 @@ character = "ケント"
 voice = "alloy"
 
 
-### 音声入力と音声認識（with whisper）
-from audio_recorder_streamlit import audio_recorder
-
+#######################################################
+# 音声入力と音声認識（with whisper）
 def write_audio_file(file_path, audio_bytes):
     with open(file_path, "wb") as audio_file:
         audio_file.write(audio_bytes)
 
 audio_bytes = audio_recorder(
     text="click and speak>>>",
-    recording_color="#e8b62c",
-    neutral_color="#6aa36f",
-    icon_name="microphone-lines",
-    icon_size="3x",
+    recording_color="#e8b62c", neutral_color="#6aa36f", icon_name="microphone-lines", icon_size="3x",
     pause_threshold=4.0,
     sample_rate=41_000
 )
@@ -32,37 +29,14 @@ audio_bytes = audio_recorder(
 if audio_bytes:
     st.audio(audio_bytes, format="audio/wav")
     write_audio_file("recorded_audio.wav", audio_bytes)
-
     transcript = client.audio.transcriptions.create(
         model="whisper-1",
         file=open("recorded_audio.wav", "rb"),
     )
     st.text(transcript.text)
 
-
 ######################################
-# 音声入力
-#from audio_recorder_streamlit import audio_recorder
-#from tempfile import NamedTemporaryFile
-
-#def transcribe_audio_to_text(audio_bytes):
-#    with NamedTemporaryFile(delete=True, suffix=".wav") as temp_file:
-#        temp_file.write(audio_bytes)
-#        temp_file.flush()
-#        with open(temp_file.name, "rb") as audio_file:
-#            response = client.audio.transcriptions.create(
-#                model="whisper-1", 
-#                file=audio_file, 
-#            )
-#    return response.text
-
-#audio_bytes = audio_recorder()
-#if audio_bytes:
-#    transcript = transcribe_audio_to_text(audio_bytes)
-#    st.write("Transcribed Text:", transcript)
-
-########################################
-# 音声入力
+# 音声入力test
 #from audio_recorder_streamlit import audio_recorder
 #audio_bytes = audio_recorder()
 ##if st.button("Save Recording"):
@@ -71,7 +45,7 @@ if audio_bytes:
 ##    st.success("Recording saved!")
 #st.audio(audio_bytes)
 
-# 音声認識
+# 音声認識test
 #audio_file2 = open("speech.wav", "rb")
 #transcription = client.audio.transcriptions.create(
 #  model="whisper-1", 
@@ -80,6 +54,7 @@ if audio_bytes:
 #st.markdown(transcription.text)
 
 #########################################
+# 音声合成test
 #user_input = st.text_area("テキストを入力してください", "Hello, Paw patrol!", height=200)
 #voice = st.radio("voice", ["alloy", "echo", "fable", "onyx", "nova", "shimmer"], horizontal = True)
 #if st.button('音声合成'):
