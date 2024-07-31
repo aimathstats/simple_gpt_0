@@ -12,7 +12,7 @@ character = "ケント"
 voice = "alloy"
 
 
-###
+### 音声入力と音声認識（with whisper）
 from audio_recorder_streamlit import audio_recorder
 
 def write_audio_file(file_path, audio_bytes):
@@ -27,7 +27,7 @@ audio_bytes = audio_recorder(
     icon_size="3x",
     pause_threshold=4.0,
     sample_rate=41_000
-)  
+)
 
 if audio_bytes:
     st.audio(audio_bytes, format="audio/wav")
