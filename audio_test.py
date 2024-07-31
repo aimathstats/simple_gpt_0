@@ -4,6 +4,12 @@ from openai import OpenAI
 import os
 client = OpenAI(api_key=st.secrets["OPENAI_API_KEY"])
 
+picture = st.camera_input("Take a picture")
+
+if picture:
+    st.image(picture)
+
+#########################################
 def write_audio_file(file_path, audio_bytes):
     with open(file_path, "wb") as audio_file:
         audio_file.write(audio_bytes)
