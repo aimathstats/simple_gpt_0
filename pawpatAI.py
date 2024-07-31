@@ -147,7 +147,7 @@ prompt = st.chat_input("しつもんは？")
 audio_bytes = audio_recorder(
     text="ここをおして、しつもんしてね",
     #recording_color="#e8b62c", 
-    recording_color="#FF4500"
+    recording_color="#f2186c"
     neutral_color="#2EF218",
     icon_name="microphone-lines", icon_size="4x",
     pause_threshold=4.0,
