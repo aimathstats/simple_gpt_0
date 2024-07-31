@@ -160,7 +160,7 @@ audio_bytes = audio_recorder(
     neutral_color="#2EF218",
     icon_name="microphone-lines",
     icon_size="4x",
-    pause_threshold=2.0,
+    pause_threshold=4.0,
     sample_rate=41_000
 )
 
