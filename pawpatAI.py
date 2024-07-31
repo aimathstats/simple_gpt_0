@@ -155,7 +155,7 @@ for message in st.session_state.messages[1:]:
 prompt = st.chat_input("質問はありますか？")
 
 audio_bytes = audio_recorder(
-    text="<<<Recording ends,click again or remain silent for two seconds.>>>",
+    text="<<<ここをおして、はなしてね>>>",
     recording_color="#e8b62c",
     neutral_color="#2EF218",
     icon_name="microphone-lines",
