@@ -25,7 +25,7 @@ def audio_to_text(audio_bytes):
 template = '''
 あなたは翻訳をするアシスタントです。
 私は主に日本語を入力するので、それを__MSG__に翻訳して、文章を出力してください。
-出力するのは英語だけにして、余計なことは付け加えないでください。
+出力するのは__MSG__だけにして、余計なことは付け加えないでください。
 '''
 template = template.replace('__MSG__', lang.replace('"', ''))
 
@@ -49,7 +49,7 @@ with col1:
     pause_threshold=5.0, sample_rate=41_000
 )
 with col2:
-    prompt = st.chat_input("しつもんは？")
+    prompt = st.chat_input("日本語を話して")
 
 # 音声入力がある場合、テキストに変換
 if audio_bytes:
