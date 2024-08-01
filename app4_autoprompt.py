@@ -18,6 +18,9 @@ for message in st.session_state.messages:
 
 #prompt = st.chat_input("質問？")
 
+if "messages2" not in st.session_state:
+    st.session_state.messages2 = []
+
 endtime = datetime.datetime.now() + datetime.timedelta(seconds=int(10))
 while datetime.datetime.now() < endtime:
     time.sleep(2)
