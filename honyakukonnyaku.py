@@ -93,7 +93,19 @@ if input_text:
         )
         # AIの返答を流れるように出力
         response = st.write_stream(stream)
-        st.markdown(response)
+
+        # 逆翻訳パート
+        stream2 = client.chat.completions.create(
+            model = st.session_state["openai_model"],
+            messages = [
+                {"role": "system", "content": template},
+                {"role": "user", "content": response}
+            ],
+            stream = True,
+            temperature = 0.5,
+        )
+        response2 = st.write_stream(stream2)
+        st.markdown(response2)
         
         # 音声合成（with tts-1）
         user_input = response
