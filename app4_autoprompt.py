@@ -47,6 +47,8 @@ if prompt:
         response = st.write_stream(stream)
     st.session_state.messages.append({"role": "assistant", "content": response})
 
+st.write(response)
+
 if response:
     with st.chat_message("user"):
         stream2 = client.chat.completions.create(
