@@ -93,6 +93,7 @@ if input_text:
         )
         # AIの返答を流れるように出力
         response = st.write_stream(stream)
+        st.write(stream)
         
         # 音声合成（with tts-1）
         user_input = response
