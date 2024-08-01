@@ -104,7 +104,7 @@ if input_text:
         stream2 = client.chat.completions.create(
             model = st.session_state["openai_model"],
             messages = [
-                {"role": "system", "content": template},
+                {"role": "system", "content": template2},
                 {"role": "user", "content": response}
             ],
             stream = True,
