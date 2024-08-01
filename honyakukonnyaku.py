@@ -36,9 +36,9 @@ if "messages" not in st.session_state:
     st.session_state.messages = []
     st.session_state.messages = [{'role': 'system', 'content': template}]
 
-for message in st.session_state.messages[1:]:
-    with st.chat_message(message["role"]):
-        st.markdown(message["content"]) # 表示する（一瞬ですべて書き下す）
+#for message in st.session_state.messages[1:]:
+#    with st.chat_message(message["role"]):
+#        st.markdown(message["content"]) # 表示する（一瞬ですべて書き下す）
 
 # 入力（音声/テキスト）
 col1, col2 = st.columns(2)
