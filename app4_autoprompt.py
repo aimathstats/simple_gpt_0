@@ -64,7 +64,7 @@ while datetime.datetime.now() < endtime:
                 {"role": "user", "content": response}
             ],
             stream=True,
-            temperature = 0.9,
+            temperature = 1.0,
         )
         prompt = st.write_stream(stream2)
     st.session_state.messages.append({"role": "user", "content": prompt})
