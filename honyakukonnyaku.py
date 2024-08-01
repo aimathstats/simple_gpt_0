@@ -108,12 +108,11 @@ if input_text:
                 {"role": "system", "content": template2},
                 {"role": "user", "content": response}
             ],
-            stream = True,
             temperature = 0.5,
         )
-        response2 = st.write_stream(stream2)
+        #response2 = st.write_stream(stream2)
         #st.markdown(response2)
-        r2 = "逆翻訳" + response2
+        r2 = "逆翻訳" + stream2
         st.markdown(r2)
         
         # 音声合成（with tts-1）
