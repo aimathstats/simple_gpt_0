@@ -5,7 +5,7 @@ from audio_recorder_streamlit import audio_recorder
 
 client = OpenAI(api_key=st.secrets["OPENAI_API_KEY"])
 
-st.set_page_config(page_title="honyaku konnyaku", page_icon=":material/Globe Asia")
+st.set_page_config(page_title="honyaku konnyaku", page_icon=":material/Globe Asia:")
 st.title("ほんやくコンニャク")
 lang = st.radio("何語に翻訳する？", ["英語", "フランス語", "中国語"], horizontal = True)
 voice = "alloy"
