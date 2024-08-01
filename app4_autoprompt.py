@@ -25,7 +25,7 @@ template = '''
 '''
 
 prompt = "こんにちわ"
-endtime = datetime.datetime.now() + datetime.timedelta(seconds=int(20))
+endtime = datetime.datetime.now() + datetime.timedelta(seconds=int(30))
 
 st.session_state.messages.append({"role": "user", "content": prompt})
 with st.chat_message("user"):
