@@ -111,14 +111,8 @@ if input_text:
             stream = True,
             temperature = 0.5,
         )
-        def stream_data():
-            yield "逆翻訳：" + stream2
-            time.sleep(0.02)
-        st.write_stream(stream_data)
         #st.markdown("逆翻訳：")
         response2 = st.write_stream(stream2)
-        #st.markdown(response2)
-        #r2 = "逆翻訳：" + response2
         
         # 音声合成（with tts-1）
         user_input = response
