@@ -21,7 +21,8 @@ while datetime.datetime.now() < endtime:
     time.sleep(1)
     st.markdown("続きは")
 
-prompt = st.chat_input("続きは？")
+prompt = "こんにちわ"
+#prompt = st.chat_input("続きは？")
 
 if prompt:
     st.session_state.messages.append({"role": "user", "content": prompt})
