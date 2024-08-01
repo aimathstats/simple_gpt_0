@@ -6,24 +6,24 @@ client = OpenAI(api_key=st.secrets["OPENAI_API_KEY"])
 
 ###########################################
 # 画像生成（DALL-E-3）
-st.title("画像生成AI")
-prompt = st.text_input("作りたい画像の説明をかいて")
+#st.title("画像生成AI")
+#prompt = st.text_input("作りたい画像の説明をかいて")
 
-if st.button("生成"):
-    if prompt:
-        response = client.images.generate(
-            model="dall-e-3",
-            prompt=prompt,
-            size="1024x1024",
-            quality="standard",
-            n=1
-        )
-
-        # 生成された画像のURLを取得して表示
-        image_url = response.data[0].url
-        st.image(image_url)
-    else:
-        st.warning("画像の説明を入力して")
+#if st.button("生成"):
+#    if prompt:
+#        response = client.images.generate(
+#            model="dall-e-3",
+#            prompt=prompt,
+#            size="1024x1024",
+#            quality="standard",
+#            n=1
+#        )
+#
+#        # 生成された画像のURLを取得して表示
+#        image_url = response.data[0].url
+#        st.image(image_url)
+#    else:
+#        st.warning("画像の説明を入力して")
 
 #########################################
 picture = st.camera_input("Take a picture")
