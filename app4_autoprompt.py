@@ -29,6 +29,7 @@ response = False
 #while datetime.datetime.now() < endtime:
 #    time.sleep(2)
 #    #prompt = "こんにちわ"
+
 if prompt:
     st.session_state.messages.append({"role": "user", "content": prompt})
     with st.chat_message("user"):
