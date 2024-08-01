@@ -28,19 +28,6 @@ endtime = datetime.datetime.now() + datetime.timedelta(seconds=int(10))
 while datetime.datetime.now() < endtime:
     time.sleep(2)
     #prompt = "こんにちわ"
-    if response:
-        with st.chat_message("user"):
-            stream2 = client.chat.completions.create(
-                model=st.session_state["openai_model"],
-                messages=[
-                    {"role": "user", "content": response}
-                ],
-                stream=True,
-            )
-            prompt = st.write_stream(stream2)
-            st.markdown(prompt)
-        st.session_state.messages.append({"role": "user", "content": prompt})
-
     if prompt:
         st.session_state.messages.append({"role": "user", "content": prompt})
         with st.chat_message("user"):
@@ -57,9 +44,16 @@ while datetime.datetime.now() < endtime:
             )
             response = st.write_stream(stream)
         st.session_state.messages.append({"role": "assistant", "content": response})
-    
-        
 
-
-
-
+    if response:
+        with st.chat_message("user"):
+            stream2 = client.chat.completions.create(
+                model=st.session_state["openai_model"],
+                messages=[
+                    {"role": "user", "content": response}
+                ],
+                stream=True,
+            )
+            prompt = st.write_stream(stream2)
+            st.markdown(prompt)
+        st.session_state.messages.append({"role": "user", "content": prompt})
