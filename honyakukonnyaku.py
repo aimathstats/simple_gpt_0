@@ -44,7 +44,7 @@ if "messages" not in st.session_state:
     st.session_state.messages = [{'role': 'system', 'content': template}]
 
 # 設定更新ボタン
-update_settings = st.button("言語更新")
+update_settings = st.button("設定更新")
 if update_settings:
     template = template.replace('__MSG__', lang.replace('"', ''))
     st.session_state.messages = []
