@@ -37,7 +37,7 @@ template2 = '''
 '''
 
 template3 = '''
-あなたは翻訳の際に、日本人の話者のために、言語をカタカナで表現するアシスタントです。
+あなたは日本人話者のために外国語をカタカナで表現するアシスタントです。
 入力された文章について、それを言語として発話する際の音声を日本語のカタカナで表現して、出力してください。
 出力するのは日本語（カタカナ）だけにして、余計なことは付け加えないでください。
 '''
@@ -107,6 +107,18 @@ if input_text:
         # AIの返答を流れるように出力
         response = st.write_stream(stream)
 
+                # カタカナ表現（返答を受けて）
+        stream3 = client.chat.completions.create(
+            model = st.session_state["openai_model"],
+            messages = [
+                {"role": "system", "content": template3},
+                {"role": "user", "content": response}
+            ],
+            stream = True,
+            temperature = 0.5,
+        )
+        response3 = st.write_stream(stream3)
+
         # 逆翻訳（返答を受けて）
         stream2 = client.chat.completions.create(
             model = st.session_state["openai_model"],
@@ -119,18 +131,6 @@ if input_text:
         )
         #st.markdown("逆翻訳：")
         response2 = st.write_stream(stream2)
-
-        # カタカナ表現（返答を受けて）
-        stream3 = client.chat.completions.create(
-            model = st.session_state["openai_model"],
-            messages = [
-                {"role": "system", "content": template3},
-                {"role": "user", "content": response}
-            ],
-            stream = True,
-            temperature = 0.5,
-        )
-        response3 = st.write_stream(stream3)
         
         # 音声合成（with tts-1）
         user_input = response
