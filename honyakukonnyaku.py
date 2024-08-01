@@ -8,6 +8,7 @@ client = OpenAI(api_key=st.secrets["OPENAI_API_KEY"])
 st.set_page_config(page_title="honyaku konnyaku", page_icon=":material/globe_asia:")
 st.title("ほんやくコンニャク")
 lang = st.radio("何語に？", ["英語", "フランス語", "中国語", "ドイツ語", "イタリア語", "ハングル語"], horizontal = True)
+speed = st.radio("話す速さは？", ["普通", "ゆっくり"], horizontal = True)
 voice = "alloy"
 
 def write_audio_file(file_path, audio_bytes):
