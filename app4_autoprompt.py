@@ -16,7 +16,7 @@ for message in st.session_state.messages:
     with st.chat_message(message["role"]):
         st.markdown(message["content"])
 
-prompt = st.chat_input("質問？")
+#prompt = st.chat_input("質問？")
 
 endtime = datetime.datetime.now() + datetime.timedelta(seconds=int(10))
 while datetime.datetime.now() < endtime:
