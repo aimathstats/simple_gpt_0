@@ -16,13 +16,12 @@ for message in st.session_state.messages:
     with st.chat_message(message["role"]):
         st.markdown(message["content"])
 
+#prompt = st.chat_input("続きは？")
+
 endtime = datetime.datetime.now() + datetime.timedelta(seconds=int(10))
 while datetime.datetime.now() < endtime:
     time.sleep(2)
-    #st.markdown("続きは")
     prompt = "こんにちわ"
-    #prompt = st.chat_input("続きは？")
-    
     if prompt:
         st.session_state.messages.append({"role": "user", "content": prompt})
         with st.chat_message("user"):
