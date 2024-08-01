@@ -7,7 +7,7 @@ client = OpenAI(api_key=st.secrets["OPENAI_API_KEY"])
 
 st.set_page_config(page_title="honyaku konnyaku", page_icon=":material/pets:")
 st.title("ほんやくコンニャク")
-lang = st.radio("", ["英語", "フランス語", "中国語"], horizontal = True)
+lang = st.radio("何語に翻訳？", ["英語", "フランス語", "中国語"], horizontal = True)
 voice = "alloy"
 
 def write_audio_file(file_path, audio_bytes):
@@ -22,32 +22,23 @@ def audio_to_text(audio_bytes):
     )
     return transcript.text
 
-# template
 template = '''
-あなたはカナダ製の子供用アニメ「パウパトロール」について何でも応答するAIです。
-
-### 条件
-- 全ての質問に対して、返答内容に関する以下の「資料」を参照した上で、役割になりきって答えてください。
-
-### 資料
-"""__MSG__"""
+あなたは翻訳をするアシスタントです。
+私は主に日本語を入力するので、それを__MSG__に翻訳して、文章を出力してください。
+出力するのは英語だけにして、余計なことは付け加えないでください。
 '''
-
 template = template.replace('__MSG__', lang.replace('"', ''))
 
-# OpenAIのモデルを指定
 if "openai_model" not in st.session_state:
     st.session_state["openai_model"] = "gpt-4o-mini"
 
-# チャットの履歴 messages を初期化（一つ一つの messages は {role, content} の形式）
 if "messages" not in st.session_state:
     st.session_state.messages = []
     st.session_state.messages = [{'role': 'system', 'content': template}]
 
-# それまでのメッセージを全て表示したままにする（このloopがないと、同じ場所を更新しながら会話が続く）
-#for message in st.session_state.messages[1:]:
-#    with st.chat_message(message["role"]):
-#        st.markdown(message["content"]) # 表示する（一瞬ですべて書き下す）
+for message in st.session_state.messages[1:]:
+    with st.chat_message(message["role"]):
+        st.markdown(message["content"]) # 表示する（一瞬ですべて書き下す）
 
 # 入力（音声/テキスト）
 col1, col2 = st.columns(2)
