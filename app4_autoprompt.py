@@ -20,7 +20,13 @@ for message in st.session_state.messages:
 # new codes
 if "messages2" not in st.session_state:
     st.session_state.messages2 = []
-template
+
+template = '''
+あなたは質問者です。
+相手の返答に対して、必ず何か質問してください。
+質問内容は何でもいいですが、一般的で答えるのが簡単なものにして下さい。
+質問は簡潔に一文でお願いします。
+'''
 
 #prompt = st.chat_input("質問？")
 prompt = "こんにちわ"
@@ -53,7 +59,7 @@ if response:
         stream2 = client.chat.completions.create(
             model=st.session_state["openai_model"],
             messages=[
-                {"role": "user", "content": template},
+                {"role": "system", "content": template},
                 {"role": "user", "content": response}
             ],
             stream=True,
