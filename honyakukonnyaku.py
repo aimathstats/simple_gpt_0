@@ -111,7 +111,7 @@ if input_text:
             stream = True,
             temperature = 0.5,
         )
-        #response2 = st.write_stream(stream2)
+        response2 = st.write_stream(stream2)
         #st.markdown(response2)
         r2 = "逆翻訳：" + response2
         st.markdown(r2)
