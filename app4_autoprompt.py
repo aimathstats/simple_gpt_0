@@ -41,7 +41,7 @@ with st.chat_message("user"):
     st.markdown(prompt)
 
 while datetime.datetime.now() < endtime:
-    time.sleep(1)
+    #time.sleep(1)
     with st.chat_message("assistant"):
         stream = client.chat.completions.create(
             model=st.session_state["openai_model"],
@@ -55,16 +55,20 @@ while datetime.datetime.now() < endtime:
         response = st.write_stream(stream)
     st.session_state.messages.append({"role": "assistant", "content": response})
 
-    time.sleep(1)
+    #time.sleep(1)
     with st.chat_message("user"):
         stream2 = client.chat.completions.create(
             model=st.session_state["openai_model"],
             messages=[
-                {"role": "system", "content": template_user},
-                {"role": "user", "content": response}
+                {"role": m["role"], "content": m["content"]}
+                for m in st.session_state.messages
+            ],
+            #messages=[
+            #    {"role": "system", "content": template_user},
+            #    {"role": "user", "content": response}
             ],
             stream=True,
-            temperature = 1.0,
+            temperature = 0.5,
         )
         prompt = st.write_stream(stream2)
     st.session_state.messages.append({"role": "user", "content": prompt})
