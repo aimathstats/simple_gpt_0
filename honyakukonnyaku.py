@@ -108,7 +108,7 @@ if input_text:
                 {"role": "system", "content": template2},
                 {"role": "user", "content": response}
             ],
-            stream = True
+            stream = True,
             temperature = 0.5,
         )
         #response2 = st.write_stream(stream2)
