@@ -3,7 +3,7 @@ import streamlit as st
 import datetime
 import time
 
-st.title("ChatGPT-like clone")
+st.title("自動おしゃべりAI")
 client = OpenAI(api_key=st.secrets["OPENAI_API_KEY"])
 
 if "openai_model" not in st.session_state:
@@ -16,15 +16,14 @@ for message in st.session_state.messages:
     with st.chat_message(message["role"]):
         st.markdown(message["content"])
 
-template = '''
+template_user = '''
 あなたは質問者です。相手は仲のよい友人ですので、挨拶は不要です。
 相手の返答に対して、必ず何か質問してください。
 質問内容は何でもいいですが、一般的で答えるのが簡単なものにして下さい。
-質問は簡潔に一文でお願いします。
-相手は仲のよい友人ですので挨拶は不要です。
+質問は簡潔に一文でお願いします。相手は仲のよい友人ですので挨拶は不要です。
 '''
 
-prompt = "こんにちわ"
+prompt = "こんにちは！"
 endtime = datetime.datetime.now() + datetime.timedelta(seconds=int(30))
 
 st.session_state.messages.append({"role": "user", "content": prompt})
@@ -51,7 +50,7 @@ while datetime.datetime.now() < endtime:
         stream2 = client.chat.completions.create(
             model=st.session_state["openai_model"],
             messages=[
-                {"role": "system", "content": template},
+                {"role": "system", "content": template_user},
                 {"role": "user", "content": response}
             ],
             stream=True,
