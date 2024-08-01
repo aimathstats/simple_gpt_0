@@ -50,6 +50,7 @@ if prompt:
                 for m in st.session_state.messages
             ],
             stream=True,
+            temperature = 0.5,
         )
         response = st.write_stream(stream)
     st.session_state.messages.append({"role": "assistant", "content": response})
@@ -63,6 +64,7 @@ if response:
                 {"role": "user", "content": response}
             ],
             stream=True,
+            temperature = 0.5,
         )
         prompt = st.write_stream(stream2)
     st.session_state.messages.append({"role": "user", "content": prompt})
@@ -76,6 +78,7 @@ if prompt:
                 for m in st.session_state.messages
             ],
             stream=True,
+            temperature = 0.5,
         )
         response = st.write_stream(stream)
     st.session_state.messages.append({"role": "assistant", "content": response})
@@ -89,6 +92,7 @@ if response:
                 {"role": "user", "content": response}
             ],
             stream=True,
+            temperature = 0.5,
         )
         prompt = st.write_stream(stream2)
     st.session_state.messages.append({"role": "user", "content": prompt})
@@ -102,6 +106,7 @@ if prompt:
                 for m in st.session_state.messages
             ],
             stream=True,
+            temperature = 0.5,
         )
         response = st.write_stream(stream)
     st.session_state.messages.append({"role": "assistant", "content": response})
@@ -115,6 +120,7 @@ if response:
                 {"role": "user", "content": response}
             ],
             stream=True,
+            temperature = 0.5,
         )
         prompt = st.write_stream(stream2)
     st.session_state.messages.append({"role": "user", "content": prompt})
@@ -128,6 +134,7 @@ if prompt:
                 for m in st.session_state.messages
             ],
             stream=True,
+            temperature = 0.5,
         )
         response = st.write_stream(stream)
     st.session_state.messages.append({"role": "assistant", "content": response})
@@ -141,9 +148,22 @@ if response:
                 {"role": "user", "content": response}
             ],
             stream=True,
+            temperature = 0.5,
         )
         prompt = st.write_stream(stream2)
     st.session_state.messages.append({"role": "user", "content": prompt})
 
-
+if prompt:
+    with st.chat_message("assistant"):
+        stream = client.chat.completions.create(
+            model=st.session_state["openai_model"],
+            messages=[
+                {"role": m["role"], "content": m["content"]}
+                for m in st.session_state.messages
+            ],
+            stream=True,
+            temperature = 0.5,
+        )
+        response = st.write_stream(stream)
+    st.session_state.messages.append({"role": "assistant", "content": response})
 
