@@ -36,6 +36,13 @@ if "messages" not in st.session_state:
     st.session_state.messages = []
     st.session_state.messages = [{'role': 'system', 'content': template}]
 
+# 設定更新ボタン
+update_settings = st.button("言語更新")
+if update_settings:
+    template = template.replace('__MSG__', lang.replace('"', ''))
+    st.session_state.messages = []
+    st.session_state.messages = [{'role': 'system', 'content': template}]
+
 #for message in st.session_state.messages[1:]:
 #    with st.chat_message(message["role"]):
 #        st.markdown(message["content"]) # 表示する（一瞬ですべて書き下す）
