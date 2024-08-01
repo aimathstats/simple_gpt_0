@@ -113,6 +113,8 @@ if input_text:
         )
         response2 = st.write_stream(stream2)
         #st.markdown(response2)
+        r2 = "逆翻訳" + response2
+        st.markdown(r2)
         
         # 音声合成（with tts-1）
         user_input = response
