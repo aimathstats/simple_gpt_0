@@ -20,6 +20,7 @@ for message in st.session_state.messages:
 # new codes
 if "messages2" not in st.session_state:
     st.session_state.messages2 = []
+template
 
 #prompt = st.chat_input("質問？")
 prompt = "こんにちわ"
@@ -47,13 +48,12 @@ if prompt:
         response = st.write_stream(stream)
     st.session_state.messages.append({"role": "assistant", "content": response})
 
-st.write(response)
-
 if response:
     with st.chat_message("user"):
         stream2 = client.chat.completions.create(
             model=st.session_state["openai_model"],
             messages=[
+                {"role": "user", "content": template},
                 {"role": "user", "content": response}
             ],
             stream=True,
