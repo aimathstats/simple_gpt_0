@@ -55,6 +55,7 @@ while datetime.datetime.now() < endtime:
             )
             prompt = st.write_stream(stream2)
             st.markdown(prompt)
+        st.session_state.messages.append({"role": "user", "content": prompt})
         
 
 
