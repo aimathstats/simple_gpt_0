@@ -7,7 +7,7 @@ client = OpenAI(api_key=st.secrets["OPENAI_API_KEY"])
 
 st.set_page_config(page_title="honyaku konnyaku", page_icon=":material/pets:")
 st.title("ほんやくコンニャク")
-lang = st.radio("何語に翻訳？", ["英語", "フランス語", "中国語"], horizontal = True)
+lang = st.radio("何語に翻訳する？", ["英語", "フランス語", "中国語"], horizontal = True)
 voice = "alloy"
 
 def write_audio_file(file_path, audio_bytes):
@@ -23,11 +23,17 @@ def audio_to_text(audio_bytes):
     return transcript.text
 
 template = '''
-あなたは翻訳をするアシスタントです。
+あなたは翻訳アシスタントです。
 私は主に日本語を入力するので、それを__MSG__に翻訳して、文章を出力してください。
 出力するのは__MSG__だけにして、余計なことは付け加えないでください。
 '''
 template = template.replace('__MSG__', lang.replace('"', ''))
+
+template2 = '''
+あなたは翻訳アシスタントです。
+入力された文章を日本語に翻訳して出力してください。
+出力するのは日本語だけにして、余計なことは付け加えないでください。
+'''
 
 if "openai_model" not in st.session_state:
     st.session_state["openai_model"] = "gpt-4o-mini"
@@ -105,7 +111,7 @@ if input_text:
             temperature = 0.5,
         )
         response2 = st.write_stream(stream2)
-        st.markdown(response2)
+        #st.markdown(response2)
         
         # 音声合成（with tts-1）
         user_input = response
