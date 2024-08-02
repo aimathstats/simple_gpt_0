@@ -33,7 +33,7 @@ def get_image_base64(image_path):
         b64_string = base64.b64encode(img_file.read()).decode('utf-8')
     return b64_string
 
-background_image = 'data/paw_figure1.png'
+background_image = 'data/tsensei_officialweb.png'
 base64_image = get_image_base64(background_image)
 
 # カスタムCSSを使って背景画像を設定
