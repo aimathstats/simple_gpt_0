@@ -24,32 +24,6 @@ def audio_to_text(audio_bytes):
     )
     return transcript.text
 
-# 背景画像の選択とstreamlitによる表示
-import base64
-
-def get_image_base64(image_path):
-    with open(image_path, 'rb') as img_file:
-        b64_string = base64.b64encode(img_file.read()).decode('utf-8')
-    return b64_string
-
-background_image = 'data/tsensei_officialweb.png'
-base64_image = get_image_base64(background_image)
-
-# カスタムCSSを使って背景画像を設定
-page_bg_img = f'''
-<style>
-.stApp {{
-background-image: linear-gradient(rgba(0,0,0,0.4),rgba(0,0,0,0.4)),url("data:image/png;base64,{base64_image}") ;
-background-size: cover;
-background-repeat: no-repeat;
-background-attachment: fixed;
-}}
-</style>
-'''
-#background-image: url("data:image/png;base64,{base64_image}");
-st.markdown(page_bg_img, unsafe_allow_html=True)
-############################################################################
-
 # data
 df = pd.read_csv('data/kosodate.csv')
 df = df.drop("ID", axis=1)
