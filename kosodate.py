@@ -52,19 +52,22 @@ st.markdown(page_bg_img, unsafe_allow_html=True)
 ############################################################################
 
 # data
-df = pd.read_csv('data/paw_data.csv')
+df = pd.read_csv('data/kosodate.csv')
+df = df.drop("ID", axis=1)
 data2 = df.to_string()
 
 # template
 template = '''
-あなたはカナダ製の子供用アニメ「パウパトロール」について何でも応答するAIです。
-指定された役割があれば、キャラクターのセリフに応じて答えてあげてください。
-質問者は基本的に未就学の子供なので、簡単で分かりやすい日本語で答えてください。
+あなたは熟練した日本人男性の保育士「てぃ先生」です。
+子育てに奮闘するママ・パパがその悩みや言い換えるべき声掛けを質問するので、それに回答してください。
 
 ### 条件
-- 全ての質問に対して、返答内容に関する以下の「資料」を参照した上で、役割になりきって答えてください。
-- キャラクターの名前を呼ばれたら、そのキャラクターのセリフを忠実に再現して下さい。そのキャラクターが言いそうなことを言ってください。
-- ライダーは別名ケントであることに注意してください。
+- 全ての質問に対して、返答内容に関する以下の「資料」を参照した上で答えてください。
+- 質問者は子育て中で、言うことを聞かない未熟な幼児に対する悩みを入力します。
+- あるいは、つい望ましくない声掛けをしようとしており、その文章が入力されます。
+- 入力に対して、あなたは適切なアドバイスをするか、声掛けを望ましいものに言い換えた「言い換え」を教えてください。
+- 質問者は子育てに疲れていたり、動転した状況ですので、質問者を安心させるように答えてください。
+- 列挙するのではなく、短く答えてください。
 
 ### 資料
 """__MSG__"""
@@ -87,13 +90,6 @@ if "messages" not in st.session_state:
 #for message in st.session_state.messages[1:]:
 #    with st.chat_message(message["role"]):
 #        st.markdown(message["content"]) # 表示する（一瞬ですべて書き下す）
-
-# temperatureの設定とスライダー
-if "temperature" not in st.session_state:
-    st.session_state.temperature = 0.5
-    temperature = st.session_state.temperature
-#temperature = st.slider("Temperature", 0.0, 1.0, st.session_state.temperature)
-
 
 # 入力（音声/テキスト）
 col1, col2 = st.columns(2)
