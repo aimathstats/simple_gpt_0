@@ -5,11 +5,9 @@ from audio_recorder_streamlit import audio_recorder
 
 client = OpenAI(api_key=st.secrets["OPENAI_API_KEY"])
 
-st.set_page_config(page_title="Paw patrol AI", page_icon=":material/pets:")
-st.title("パウパトゲーム")
-st.subheader("パウパトについてなんでもきいてみよう！")
+st.set_page_config(page_title="KOSODATE AI", page_icon=":material/pets:")
+st.title("子育てで困ったらこれやってみ")
 #character = st.radio("", ["みんな","ケント", "チェイス"], horizontal = True)
-#character = "ケント"
 voice = "alloy"
 
 #######################################################
@@ -25,58 +23,6 @@ def audio_to_text(audio_bytes):
         file=open("recorded_audio.wav", "rb"),
     )
     return transcript.text
-
-#audio_bytes = audio_recorder(
-#    text="click and speak>>>",
-#    recording_color="#e8b62c", neutral_color="#6aa36f", icon_name="microphone-lines", icon_size="3x",
-#    pause_threshold=4.0,
-#    sample_rate=41_000
-#)
-
-#if audio_bytes:
-#    st.audio(audio_bytes, format="audio/wav")
-#    write_audio_file("recorded_audio.wav", audio_bytes)
-#    transcript = client.audio.transcriptions.create(model="whisper-1", file=open("recorded_audio.wav", "rb"))
-#    st.text(transcript.text)
-
-######################################
-# 音声入力test
-#from audio_recorder_streamlit import audio_recorder
-#audio_bytes = audio_recorder()
-##if st.button("Save Recording"):
-##    with open("speech.wav", "wb") as f:
-##        f.write(audio_bytes)
-##    st.success("Recording saved!")
-#st.audio(audio_bytes)
-
-# 音声認識test
-#audio_file2 = open("speech.wav", "rb")
-#transcription = client.audio.transcriptions.create(
-#  model="whisper-1", 
-#  file=audio_file2, 
-#)
-#st.markdown(transcription.text)
-
-#########################################
-# 音声合成test
-#user_input = st.text_area("テキストを入力してください", "Hello, Paw patrol!", height=200)
-#voice = st.radio("voice", ["alloy", "echo", "fable", "onyx", "nova", "shimmer"], horizontal = True)
-#if st.button('音声合成'):
-#    if user_input:
-#        try:
-#            response = client.audio.speech.create(
-#                model="tts-1",
-#                voice=voice,
-#                input=user_input,
-#            )
-#            output_file = "output.mp3"
-#            response.stream_to_file(output_file)
-#            st.audio(output_file)
-#        except Exception as e:
-#            st.error(f"エラーが発生しました: {e}")
-#    else:
-#        st.warning("テキストを入力してください。")
-############################################################################
 
 # 背景画像の選択とstreamlitによる表示
 import base64
@@ -159,25 +105,6 @@ with col1:
 with col2:
     prompt = st.chat_input("しつもんは？")
 
-#with st.container():
-#    prompt = st.chat_input("しつもんは？")
-#    audio_bytes = audio_recorder(
-#        text="マイクをおして、しつもんしてね", 
-#        recording_color="#f21835", #recording_color="#e8b62c",
-#        neutral_color="#2EF218",
-#        icon_name="microphone-lines", icon_size="5x",
-#        pause_threshold=5.0, sample_rate=41_000
-#    )
-
-#prompt = st.chat_input("しつもんは？")
-#audio_bytes = audio_recorder(
-#    text="マイクをおして、しつもんしてね", 
-#    recording_color="#f21835", #recording_color="#e8b62c",
-#    neutral_color="#2EF218",
-#    icon_name="microphone-lines", icon_size="5x",
-#    pause_threshold=5.0, sample_rate=41_000
-#)
-
 # 音声入力がある場合、テキストに変換
 if audio_bytes:
     audio_transcript = audio_to_text(audio_bytes)
@@ -193,12 +120,10 @@ input_text = st.session_state.audio_transcript if 'audio_transcript' in st.sessi
 # old codes
 if input_text:
     # messagesにユーザーのプロンプトを追加
-    #st.session_state.messages.append({"role": "user", "content": prompt})
     st.session_state.messages.append({"role": "user", "content": input_text})
 
     # ユーザーのアイコンで、promptをそのまま表示
     with st.chat_message("user"):
-        #st.markdown(prompt)
         st.markdown(input_text)
 
     # AIのアイコンで
