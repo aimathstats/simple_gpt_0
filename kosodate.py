@@ -39,7 +39,7 @@ base64_image = get_image_base64(background_image)
 page_bg_img = f'''
 <style>
 .stApp {{
-background-image: linear-gradient(rgba(0,0,0,0.4),rgba(0,0,0,0.4)),url("data:image/png;base64,{base64_image}") ;
+background-image: linear-gradient(rgba(0,0,0,0.2),rgba(0,0,0,0.2)),url("data:image/png;base64,{base64_image}") ;
 background-size: cover;
 background-repeat: no-repeat;
 background-attachment: fixed;
