@@ -8,7 +8,7 @@ client = OpenAI(api_key=st.secrets["OPENAI_API_KEY"])
 st.set_page_config(page_title="KOSODATE AI", page_icon=":material/pets:")
 st.title("子育てアドバイスAI")
 st.subheader("『子育てで困ったら、これやってみ！』てぃ先生")
-voice = "alloy"
+voice = "shimmer"
 
 #######################################################
 # 音声入力と音声認識（with whisper）
