@@ -19,7 +19,8 @@ template = '''
 """__MSG__"""
 '''
 
-template = template.replace('__MSG__', data1.replace('"', ''))
+#template = template.replace('__MSG__', data1.replace('"', ''))
+template = template.replace('__MSG__', data1)
 
 if "openai_model" not in st.session_state:
     st.session_state["openai_model"] = "gpt-4o-mini"
