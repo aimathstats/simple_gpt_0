@@ -1,13 +1,17 @@
 from openai import OpenAI
 import streamlit as st
 import pandas as pd
+import os
 
 client = OpenAI(api_key=st.secrets["OPENAI_API_KEY"])
 
 st.title("自動データ分析")
 #st.subheader("統計学（前半）に関する質問に答えます")
 
-
+with st.form("form", clear_on_submit=False):
+    user_question = st.text_area("文章を入力")
+    file = [st.file_uploader("ファイルをアップロード", accept_multiple_files=False)] or None
+    submitted = st.form_submit_button("送信")
 
 
 
