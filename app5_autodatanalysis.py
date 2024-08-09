@@ -7,12 +7,17 @@ import time
 client = OpenAI(api_key=st.secrets["OPENAI_API_KEY"])
 st.title("自動データ分析")
 
-
 assistant = client.beta.assistants.create(
-    name="Math Tutor",
-    instructions="You are a personal math tutor. Answer questions briefly, in a sentence or less.",
+    name="汎用アシスタント",
+    instructions="あなたは汎用的なアシスタントです。質問には簡潔かつ正確に答えてください。",
+    tools=[{"type": "code_interpreter"}],
     model="gpt-4o",
 )
+#assistant = client.beta.assistants.create(
+#    name="Math Tutor",
+#    instructions="You are a personal math tutor. Answer questions briefly, in a sentence or less.",
+#    model="gpt-4o",
+#)
 ASSITANT_ID = assistant.id
 
 def submit_message(thread, user_message, file=None, assistant_id= ASSITANT_ID):
