@@ -45,14 +45,14 @@ prefectures = df["都道府県"].unique().tolist()
 selected_prefecture = st.selectbox("都道府県を選択してください:", prefectures, index=prefectures.index("京 都 府"))
 prefecture_data = df[df["都道府県"] == selected_prefecture]
 prefecture_data = prefecture_data.melt(id_vars=["都道府県"], var_name="週", value_name="値").drop(columns="都道府県")
-
 fig = px.line(prefecture_data, x="週", y="値", title=f"{selected_prefecture}の週ごとのデータ")
 st.plotly_chart(fig)
 
 #### GPT part ####
 client = OpenAI(api_key=st.secrets["OPENAI_API_KEY"])
 
-data1 = df[df['都道府県'] == '京 都 府']
+#data1 = df[df['都道府県'] == '京 都 府']
+data1 = df[df['都道府県'] == selected_prefecture]
 data2 = data1.to_string()
 
 # template
@@ -67,7 +67,6 @@ template = template.replace('__MSG__', data2.replace('"', ''))
 if "openai_model" not in st.session_state:
     st.session_state["openai_model"] = "gpt-4o-mini"
 
-# チャットの履歴 messages を初期化（一つ一つの messages は {role, content} の形式）
 if "messages" not in st.session_state:
     st.session_state.messages = []
     st.session_state.messages = [{'role': 'system', 'content': template}]
@@ -85,22 +84,14 @@ with st.chat_message("assistant"):
     response = st.write_stream(stream)
 st.session_state.messages.append({"role": "assistant", "content": response})
 
-
 # 追加入力されたら、内容をpromptに格納(入力までは待機)
 if prompt := st.chat_input("質問はありますか？"):
-    # messagesにユーザーのプロンプトを追加
     st.session_state.messages.append({"role": "user", "content": prompt})
-
-    # ユーザーのアイコンで、promptをそのまま表示
     with st.chat_message("user"):
         st.markdown(prompt)
-
-    # AIのアイコンで
     with st.chat_message("assistant"):
-        # ChatGPTの返答をstreamに格納
         stream = client.chat.completions.create(
             model = st.session_state["openai_model"],
-            # 会話履歴をすべて参照して渡す
             messages = [
                 {"role": m["role"], "content": m["content"]}
                 for m in st.session_state.messages
@@ -108,10 +99,6 @@ if prompt := st.chat_input("質問はありますか？"):
             stream = True,
             temperature = 0.5,
         )
-        # AIの返答を流れるように出力
-        response = st.write_stream(stream)
-    
-    # messagesにAIの返答を格納
+        response = st.write_stream(stream)   
     st.session_state.messages.append({"role": "assistant", "content": response})
-    #　ここで一旦終わり、入力待機となる
-
+ 
