@@ -43,6 +43,7 @@ thread = client.beta.threads.create(
     }
   ]
 )
+st.markdown(thread)
 
 ###################################
 # template
