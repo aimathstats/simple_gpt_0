@@ -89,22 +89,22 @@ def pdf_plot_analysis_ai():
     st.session_state.messages.append({"role": "assistant", "content": response})
     
     # 追加入力されたら、内容をpromptに格納(入力までは待機)
-    if prompt := st.chat_input("質問はありますか？"):
-        st.session_state.messages.append({"role": "user", "content": prompt})
-        with st.chat_message("user"):
-            st.markdown(prompt)
-        with st.chat_message("assistant"):
-            stream = client.chat.completions.create(
-                model = st.session_state["openai_model"],
-                messages = [
-                    {"role": m["role"], "content": m["content"]}
-                    for m in st.session_state.messages
-                ],
-                stream = True,
-                temperature = 0.5,
-            )
-            response = st.write_stream(stream)   
-        st.session_state.messages.append({"role": "assistant", "content": response})
+    #if prompt := st.chat_input("質問はありますか？"):
+    #    st.session_state.messages.append({"role": "user", "content": prompt})
+    #    with st.chat_message("user"):
+    #        st.markdown(prompt)
+    #    with st.chat_message("assistant"):
+    #        stream = client.chat.completions.create(
+    #            model = st.session_state["openai_model"],
+    #            messages = [
+    #                {"role": m["role"], "content": m["content"]}
+    #                for m in st.session_state.messages
+    #            ],
+    #            stream = True,
+    #            temperature = 0.5,
+    #        )
+    #        response = st.write_stream(stream)   
+    #    st.session_state.messages.append({"role": "assistant", "content": response})
 
 
 #### while part ####
@@ -121,7 +121,7 @@ if running:
         #        visualize_data(text)
         #        summary = generate_summary(text)
         #        st.write(summary)
-        time.sleep(30)
+        time.sleep(20)
         if stop:
             loop_running = False
             st.write("終了しました。")
