@@ -71,6 +71,7 @@ client = OpenAI(api_key=st.secrets["OPENAI_API_KEY"])
 
 # data
 #df = pd.read_csv('data/combined1.csv')
+st.write(df.columns)
 data1 = df["都道府県"]
 #data1 = df["説明"][0:10]
 data2 = data1.to_string()
