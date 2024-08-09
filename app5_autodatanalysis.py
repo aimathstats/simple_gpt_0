@@ -34,7 +34,7 @@ run = client.beta.threads.runs.retrieve(
         run_id=run.id
 )
                 
-time.sleep(3)
+time.sleep(30)
 print(run.status)
 
 messages = client.beta.threads.messages.list(
