@@ -102,4 +102,26 @@ if prompt := st.chat_input("質問はありますか？"):
         )
         response = st.write_stream(stream)   
     st.session_state.messages.append({"role": "assistant", "content": response})
- 
+
+
+
+#### while part ####
+# 開始・終了の制御用変数
+running = st.button("開始")
+stop = st.button("終了")
+
+if running:
+    loop_running = True    
+    while loop_running:
+        if url:
+            text = get_and_process_pdf(url)
+            if text:
+                visualize_data(text)
+                summary = generate_summary(text)
+                st.write(summary)
+        time.sleep(60)
+        if stop:
+            loop_running = False
+            st.write("終了しました。")
+            break
+
