@@ -61,3 +61,10 @@ prefecture_data = prefecture_data.melt(id_vars=["都道府県"], var_name="週",
 fig = px.line(prefecture_data, x="週", y="値", title=f"{selected_prefecture}の週ごとのデータ")
 #st.subheader('2024年コロナ都道府県別定点観測:  ' + selected_prefecture)
 st.plotly_chart(fig)
+
+
+#### GPT part ####
+
+
+
+
