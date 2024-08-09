@@ -6,6 +6,7 @@ import requests
 from bs4 import BeautifulSoup
 from urllib.parse import urljoin
 from openai import OpenAI
+import time
 
 st.title("自動データ取得・可視化・AI分析")
 
