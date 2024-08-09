@@ -2,5 +2,6 @@ openai
 streamlit
 audio_recorder_streamlit
 
+plotly
 PyMuPDF
 bs4
