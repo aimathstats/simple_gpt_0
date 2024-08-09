@@ -39,7 +39,7 @@ columns = table_data[1]
 columns[0] = "都道府県" 
 data_rows = table_data[2:]
 df = pd.DataFrame(data_rows, columns=columns)
-st.write(df.head())
+#st.write(df.head())
 
 prefectures = df["都道府県"].unique().tolist()
 selected_prefecture = st.selectbox("都道府県を選択してください:", prefectures, index=prefectures.index("京 都 府"))
@@ -59,7 +59,8 @@ data2 = data1.to_string()
 template = '''
 あなたは統計学の専門家です。
 これから示すデータは、直近の日本のコロナの定点観測あたりの感染者数のデータです。
-データを参照した上で、その平均値を求めてください。
+データを参照した上で、平均値を含めたデータ分析を行い、結果を解釈してください。
+できれば、今後の対策案も示してください。
 __MSG__
 '''
 template = template.replace('__MSG__', data2.replace('"', ''))
