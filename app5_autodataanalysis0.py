@@ -7,6 +7,7 @@ from bs4 import BeautifulSoup
 from urllib.parse import urljoin
 from openai import OpenAI
 
+st.title("自動データ取得・可視化・AI分析")
 
 # PDFからのテーブル取得と可視化：都道府県別コロナ定点観測の折れ線
 # 対象ページのURL
@@ -67,7 +68,6 @@ st.plotly_chart(fig)
 
 #### GPT part ####
 client = OpenAI(api_key=st.secrets["OPENAI_API_KEY"])
-st.title("自動データ取得・可視化・AI分析")
 
 # data
 #df = pd.read_csv('data/combined1.csv')
