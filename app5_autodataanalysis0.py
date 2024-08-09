@@ -71,11 +71,9 @@ client = OpenAI(api_key=st.secrets["OPENAI_API_KEY"])
 
 # data
 #df = pd.read_csv('data/combined1.csv')
-st.write(df.columns[5])
-data1 = df[df.columns[5]]
-#data1 = df["説明"][0:10]
+#st.write(df.columns[5])
+data1 = df[df['都道府県'] == '京 都 府']
 data2 = data1.to_string()
-#st.markdown(df.head())
 
 # template
 template = '''
