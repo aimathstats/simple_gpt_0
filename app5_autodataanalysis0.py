@@ -1,11 +1,12 @@
 import plotly.express as px
 import streamlit as st
-import numpy as np
 import pandas as pd
 import fitz
 import requests
 from bs4 import BeautifulSoup
 from urllib.parse import urljoin
+from openai import OpenAI
+
 
 # PDFからのテーブル取得と可視化：都道府県別コロナ定点観測の折れ線
 # 対象ページのURL
@@ -63,8 +64,66 @@ fig = px.line(prefecture_data, x="週", y="値", title=f"{selected_prefecture}�
 st.plotly_chart(fig)
 
 
+
 #### GPT part ####
+client = OpenAI(api_key=st.secrets["OPENAI_API_KEY"])
+st.title("自動データ取得・可視化・AI分析")
 
+# data
+#df = pd.read_csv('data/combined1.csv')
+data1 = df["都道府県"]
+#data1 = df["説明"][0:10]
+data2 = data1.to_string()
+#st.markdown(df.head())
 
+# template
+template = '''
+あなたは「統計学」の専門家です。
 
+### 条件
+- 全ての質問に対して、以下の詳細な「データ」を参照した上で、正確に答えてください。
+
+### データ
+"""__MSG__"""
+'''
+
+template = template.replace('__MSG__', data2.replace('"', ''))
+
+# OpenAIのモデルを指定
+if "openai_model" not in st.session_state:
+    st.session_state["openai_model"] = "gpt-4o-mini"
+
+# チャットの履歴 messages を初期化（一つ一つの messages は {role, content} の形式）
+if "messages" not in st.session_state:
+    st.session_state.messages = []
+    st.session_state.messages = [{'role': 'system', 'content': template}]
+
+# 入力されたら、内容をpromptに格納(入力までは待機)
+if prompt := st.chat_input("質問はありますか？"):
+    # messagesにユーザーのプロンプトを追加
+    st.session_state.messages.append({"role": "user", "content": prompt})
+
+    # ユーザーのアイコンで、promptをそのまま表示
+    with st.chat_message("user"):
+        st.markdown(prompt)
+
+    # AIのアイコンで
+    with st.chat_message("assistant"):
+        # ChatGPTの返答をstreamに格納
+        stream = client.chat.completions.create(
+            model = st.session_state["openai_model"],
+            # 会話履歴をすべて参照して渡す
+            messages = [
+                {"role": m["role"], "content": m["content"]}
+                for m in st.session_state.messages
+            ],
+            stream = True,
+            temperature = 0.5,
+        )
+        # AIの返答を流れるように出力
+        response = st.write_stream(stream)
+    
+    # messagesにAIの返答を格納
+    st.session_state.messages.append({"role": "assistant", "content": response})
+    #　ここで一旦終わり、入力待機となる
 
