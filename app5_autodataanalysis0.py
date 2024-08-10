@@ -20,7 +20,7 @@ def get_rand_wiki():
         title = soup.find('h1', {'id': 'firstHeading'}).text
         content = soup.find('div', {'id': 'mw-content-text'}).text
         st.write(f"Title: {title}\n")
-        #st.write(f"Content: {content[:500]}...\n")  # 先頭の500文字を表示
+        st.write(f"Content: {content[:500]}...\n")  # 先頭の500文字を表示
     else:
         st.write("Failed to retrieve the page")
 
