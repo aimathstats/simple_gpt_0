@@ -26,6 +26,36 @@ def get_rand_wiki():
         st.write("Failed to retrieve the page")
 
 
+def get_rand_page_from_category(category_url):
+    # カテゴリーページのHTMLを取得
+    response = requests.get(category_url)
+    if response.status_code == 200:
+        soup = BeautifulSoup(response.text, 'html.parser')
+        
+        # カテゴリーページ内のすべてのリンクを取得
+        article_links = soup.select('div.mw-category-group a')
+        
+        if article_links:
+            # リンクのリストからランダムに1つ選択
+            random_link = random.choice(article_links)['href']
+            article_url = f"https://ja.wikipedia.org{random_link}"
+            article_response = requests.get(article_url)
+            if article_response.status_code == 200:
+                article_soup = BeautifulSoup(article_response.text, 'html.parser')
+                title = article_soup.find('h1', {'id': 'firstHeading'}).text
+                content = article_soup.find('div', {'id': 'mw-content-text'}).text
+                
+                st.write(f"タイトル: {title}\n")
+                #st.write(f"URL: {article_url}\n")
+                st.write(f"内容: {content[:500]}...\n")  # 先頭の500文字を表示
+            else:
+                st.write("記事の取得に失敗しました。")
+        else:
+            st.write("記事が見つかりませんでした。")
+    else:
+        st.write("カテゴリーページの取得に失敗しました。")
+
+
 def pdf_plot_analysis_ai():
     # PDFからのテーブル取得と可視化：都道府県別コロナ定点観測の折れ線
     url = "https://www.mhlw.go.jp/stf/seisakunitsuite/bunya/0000121431_00461.html"
@@ -132,6 +162,9 @@ if running:
     while loop_running:
         get_rand_wiki()
         #pdf_plot_analysis_ai()
+        category_url = "https://ja.wikipedia.org/wiki/Category:数学の定理"
+        get_rand_page_from_category(category_url)
+
         time.sleep(1)
         
         if stop:
