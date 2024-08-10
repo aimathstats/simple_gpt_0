@@ -131,7 +131,7 @@ if running:
     while loop_running:
         get_rand_wiki()
         #pdf_plot_analysis_ai()
-        time.sleep(5)
+        time.sleep(3)
         if stop:
             loop_running = False
             st.write("終了しました。")
