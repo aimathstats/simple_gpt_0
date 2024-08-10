@@ -15,17 +15,12 @@ def get_rand_wiki():
     # WikipediaのランダムなページのURL
     random_url = "https://en.wikipedia.org/wiki/Special:Random"
     response = requests.get(random_url)
-    
-    # 成功した場合、ページの内容を取得
     if response.status_code == 200:
         soup = BeautifulSoup(response.text, 'html.parser')
-        
-        # ページタイトル・内容を取得
         title = soup.find('h1', {'id': 'firstHeading'}).text
         content = soup.find('div', {'id': 'mw-content-text'}).text
-        
         st.write(f"Title: {title}\n")
-        st.write(f"Content: {content[:100]}...\n")  # 先頭の500文字を表示
+        st.write(f"Content: {content[:500]}...\n")  # 先頭の500文字を表示
     else:
         st.write("Failed to retrieve the page")
 
@@ -136,12 +131,6 @@ if running:
     while loop_running:
         get_rand_wiki()
         pdf_plot_analysis_ai()
-        #if url:
-        #    text = get_and_process_pdf(url)
-        #    if text:
-        #        visualize_data(text)
-        #        summary = generate_summary(text)
-        #        st.write(summary)
         time.sleep(20)
         if stop:
             loop_running = False
