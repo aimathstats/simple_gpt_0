@@ -7,8 +7,28 @@ from bs4 import BeautifulSoup
 from urllib.parse import urljoin
 from openai import OpenAI
 import time
+import random
 
 st.title("自動データ取得・可視化・AI分析")
+
+def get_rand_wiki():
+    # WikipediaのランダムなページのURL
+    random_url = "https://en.wikipedia.org/wiki/Special:Random"
+    response = requests.get(random_url)
+    
+    # 成功した場合、ページの内容を取得
+    if response.status_code == 200:
+        soup = BeautifulSoup(response.text, 'html.parser')
+        
+        # ページタイトル・内容を取得
+        title = soup.find('h1', {'id': 'firstHeading'}).text
+        content = soup.find('div', {'id': 'mw-content-text'}).text
+        
+        st.write(f"Title: {title}\n")
+        st.write(f"Content: {content[:100]}...\n")  # 先頭の500文字を表示
+    else:
+        st.write("Failed to retrieve the page")
+
 
 def pdf_plot_analysis_ai():
     # PDFからのテーブル取得と可視化：都道府県別コロナ定点観測の折れ線
@@ -114,6 +134,7 @@ stop = st.button("終了")
 if running:
     loop_running = True    
     while loop_running:
+        get_rand_wiki()
         pdf_plot_analysis_ai()
         #if url:
         #    text = get_and_process_pdf(url)
