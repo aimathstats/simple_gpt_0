@@ -13,7 +13,8 @@ st.title("自動データ取得・可視化・AI分析")
 
 def get_rand_wiki():
     # WikipediaのランダムなページのURL
-    random_url = "https://en.wikipedia.org/wiki/Special:Random"
+    #random_url = "https://en.wikipedia.org/wiki/Special:Random"
+    random_url = "https://ja.wikipedia.org/wiki/Special:Random"
     response = requests.get(random_url)
     if response.status_code == 200:
         soup = BeautifulSoup(response.text, 'html.parser')
