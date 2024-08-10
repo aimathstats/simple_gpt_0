@@ -20,7 +20,7 @@ def get_rand_wiki():
         title = soup.find('h1', {'id': 'firstHeading'}).text
         content = soup.find('div', {'id': 'mw-content-text'}).text
         st.write(f"Title: {title}\n")
-        st.write(f"Content: {content[:500]}...\n")  # 先頭の500文字を表示
+        #st.write(f"Content: {content[:500]}...\n")  # 先頭の500文字を表示
     else:
         st.write("Failed to retrieve the page")
 
@@ -130,8 +130,8 @@ if running:
     loop_running = True    
     while loop_running:
         get_rand_wiki()
-        pdf_plot_analysis_ai()
-        time.sleep(20)
+        #pdf_plot_analysis_ai()
+        time.sleep(5)
         if stop:
             loop_running = False
             st.write("終了しました。")
