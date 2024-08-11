@@ -33,12 +33,12 @@ def chat_between_gpts():
 
         ai1_response = generate_response(ai1_prompt, conversation_history)
         conversation_history.append({"role": "assistant", "content": ai1_response})
-        st.write(f"**AI-1:** {ai1_response}")
+        st.write(f"**AI-1（質問者）:** {ai1_response}")
 
         # AI_2が質問に回答
         ai2_response = generate_response(ai1_response, conversation_history)
         conversation_history.append({"role": "assistant", "content": ai2_response})
-        st.write(f"**AI-2:** {ai2_response}")
+        st.write(f"**AI-2（回答者）:** {ai2_response}")
 
         current_turn += 1
 
