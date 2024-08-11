@@ -15,6 +15,7 @@ def get_rand_wiki():
     # WikipediaのランダムなページのURL
     #random_url = "https://en.wikipedia.org/wiki/Special:Random"
     random_url = "https://ja.wikipedia.org/wiki/Special:Random"
+    
     response = requests.get(random_url)
     if response.status_code == 200:
         soup = BeautifulSoup(response.text, 'html.parser')
@@ -23,6 +24,7 @@ def get_rand_wiki():
         st.write(f"Title: {title}\n")
         #st.write(f"URL: {random_url}\n")
         st.write(f"Content: {content[:100]}...\n")  # 先頭の500文字を表示
+
         summary_wiki(content)
     else:
         st.write("Failed to retrieve the page")
@@ -32,11 +34,10 @@ def get_rand_page_from_category(category_url):
     # カテゴリーページのHTMLを取得
     response = requests.get(category_url)
     if response.status_code == 200:
-        soup = BeautifulSoup(response.text, 'html.parser')
+        soup = BeautifulSoup(response.text, 'html.parser')        
         
         # カテゴリーページ内のすべてのリンクを取得
-        article_links = soup.select('div.mw-category-group a')
-        
+        article_links = soup.select('div.mw-category-group a')        
         if article_links:
             # リンクのリストからランダムに1つ選択
             random_link = random.choice(article_links)['href']
@@ -50,6 +51,7 @@ def get_rand_page_from_category(category_url):
                 st.write(f"タイトル: {title}\n")
                 #st.write(f"URL: {article_url}\n")
                 st.write(f"内容: {content[:100]}...\n")  # 先頭の500文字を表示
+                
                 summary_wiki(content)
             else:
                 st.write("記事の取得に失敗しました。")
@@ -61,23 +63,20 @@ def get_rand_page_from_category(category_url):
 def summary_wiki(cont):
     client = OpenAI(api_key=st.secrets["OPENAI_API_KEY"])
     data2 = cont
-
     # template
     template = '''
-    あなたはwikipediaを要約する専門家です。
-    これから示す記事の内容を、重要なキーワードだけを用いて150字で要約してください。
+    あなたはwikipediaの記事全体を要約する専門家です。
+    これから示す記事の内容を、重要なキーワードを用いて、簡潔に150字で要約してください。
     __MSG__
     '''
-    template = template.replace('__MSG__', data2.replace('"', ''))
-    st.session_state.messages = []
-    
-    #with st.chat_message("assistant"):
-    stream = client.chat.completions.create(
-        model = "gpt-4o-mini",
-        messages = [{'role': 'system', 'content': template}],
-        stream = True,
-    )
-    response = st.write_stream(stream)
+    template = template.replace('__MSG__', data2.replace('"', ''))    
+    with st.chat_message("assistant"):
+        stream = client.chat.completions.create(
+            model = "gpt-4o-mini",
+            messages = [{'role': 'system', 'content': template}],
+            stream = True,
+        )
+        response = st.write_stream(stream)
 
 def pdf_plot_analysis_ai():
     # PDFからのテーブル取得と可視化：都道府県別コロナ定点観測の折れ線
@@ -137,13 +136,13 @@ def pdf_plot_analysis_ai():
     '''
     template = template.replace('__MSG__', data2.replace('"', ''))
     
-    #with st.chat_message("assistant"):
-    stream = client.chat.completions.create(
-        model = "gpt-4o-mini",
-        messages = [{'role': 'system', 'content': template}],
-        stream = True,
-    )
-    response = st.write_stream(stream)
+    with st.chat_message("assistant"):
+        stream = client.chat.completions.create(
+            model = "gpt-4o-mini",
+            messages = [{'role': 'system', 'content': template}],
+            stream = True,
+        )
+        response = st.write_stream(stream)
 
 #### while part ####
 running = st.button("開始")
