@@ -35,7 +35,6 @@ for message in st.session_state.messages[1:]:
 
 prompt = "こんにちは！日本のJ-POPについて話しませんか？"
 st.session_state.messages.append({"role": "user", "content": prompt})
-
 with st.chat_message("user"):
     st.markdown(prompt)
 
@@ -69,7 +68,7 @@ while datetime.datetime.now() < endtime:
                 {"role": "user", "content": response}
             ],
             stream=True,
-            temperature = 1.0,
+            temperature = 3.0,
         )
         prompt2 = st.write_stream(stream2)
     st.session_state.messages.append({"role": "user", "content": prompt2})
