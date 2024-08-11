@@ -33,12 +33,13 @@ for message in st.session_state.messages[1:]:
     with st.chat_message(message["role"]):
         st.markdown(message["content"])
 
-prompt = "こんにちは！"
-endtime = datetime.datetime.now() + datetime.timedelta(seconds=int(30))
-
+prompt = "こんにちは！日本のJ-POPについて話しませんか？"
 st.session_state.messages.append({"role": "user", "content": prompt})
+
 with st.chat_message("user"):
     st.markdown(prompt)
+
+endtime = datetime.datetime.now() + datetime.timedelta(seconds=int(30))
 
 while datetime.datetime.now() < endtime:
     time.sleep(1)
