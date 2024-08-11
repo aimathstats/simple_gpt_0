@@ -29,7 +29,7 @@ def chat_between_gpts():
         if current_turn == 1:
             ai1_prompt = "こんにちわ！会話を始めるために質問してくれる?"
         else:
-            ai1_prompt = "Can you ask me another question based on our conversation?"
+            ai1_prompt = "私たちの会話に基づいて、別の質問をしてください。"
 
         ai1_response = generate_response(ai1_prompt, conversation_history)
         conversation_history.append({"role": "assistant", "content": ai1_response})
