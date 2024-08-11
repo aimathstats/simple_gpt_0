@@ -153,8 +153,8 @@ if running:
         get_rand_wiki()
         category_url = "https://ja.wikipedia.org/wiki/Category:数学のエポニム"
         get_rand_page_from_category(category_url) 
-        pdf_plot_analysis_ai()
-        time.sleep(5)        
+        #pdf_plot_analysis_ai()
+        time.sleep(3)        
         if stop:
             loop_running = False
             break
