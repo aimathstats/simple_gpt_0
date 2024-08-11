@@ -3,17 +3,15 @@ import streamlit as st
 import datetime
 import time
 
-# OpenAI APIキーを設定
-#openai.api_key = "YOUR_API_KEY"
 client = OpenAI(api_key=st.secrets["OPENAI_API_KEY"])
 
 def generate_response(prompt, conversation_history):
     response = client.chat.completions.create(
-    #response = openai.ChatCompletion.create(
         model="gpt-4o-mini",
         messages=conversation_history + [{"role": "user", "content": prompt}],
         max_tokens=150,
-        temperature=0.7,
+        #temperature=0.7,
+        temperature=0.5  # 回答の一貫性を高めるために温度を下げる
         stop=None,
     )
     return response.choices[0].message.content
@@ -27,18 +25,20 @@ def chat_between_gpts():
     while current_turn <= max_turns:
         # AI_1が質問を生成
         if current_turn == 1:
-            ai1_prompt = "こんにちわ！会話を始めるために質問してくれる？なお、挨拶は一切不要です。"
+            ai1_prompt = "こんにちわ！会話を始めるために質問してくれる？なお、挨拶は不要です。"
         else:
-            ai1_prompt = "私たちの会話に基づいて、別の質問をしてください。なお、挨拶は一切不要です。"
+            ai1_prompt = "これまでの会話に基づき、別の質問をしてください。なお、挨拶は不要です。"
 
         ai1_response = generate_response(ai1_prompt, conversation_history)
         conversation_history.append({"role": "assistant", "content": ai1_response})
-        st.write(f"**AI-1（質問者）:** {ai1_response}")
+        st.write(f"**質問AI:** {ai1_response}")
 
         # AI_2が質問に回答
-        ai2_response = generate_response(ai1_response, conversation_history)
+        ai2_prompt = f"以下の質問に具体的に答えてください: {ai1_response}"
+        ai2_response = generate_response(ai2_prompt, conversation_history)
+        #ai2_response = generate_response(ai1_response, conversation_history)
         conversation_history.append({"role": "assistant", "content": ai2_response})
-        st.write(f"**AI-2（回答者）:** {ai2_response}")
+        st.write(f"**回答AI:** {ai2_response}")
 
         current_turn += 1
 
