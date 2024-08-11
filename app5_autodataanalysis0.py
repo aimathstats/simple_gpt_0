@@ -49,6 +49,7 @@ def get_rand_page_from_category(category_url):
                 st.write(f"タイトル: {title}\n")
                 #st.write(f"URL: {article_url}\n")
                 st.write(f"内容: {content[:500]}...\n")  # 先頭の500文字を表示
+                st.write(content)
                 summary(content)
             else:
                 st.write("記事の取得に失敗しました。")
@@ -142,7 +143,7 @@ def pdf_plot_analysis_ai():
     あなたは統計学の専門家です。
     これから示すデータは、直近の日本のコロナの定点観測あたりの感染者数のデータです。
     データを参照した上で、平均値を含めたデータ分析を行い、結果を解釈してください。できれば、今後の対策案も示してください。
-    すべて結果を簡潔に短く示して。
+    すべて結果を簡潔に短く100字で示して。
     __MSG__
     '''
     template = template.replace('__MSG__', data2.replace('"', ''))
