@@ -5,6 +5,7 @@ import time
 
 st.title("自動おしゃべりAI　v2")
 client = OpenAI(api_key=st.secrets["OPENAI_API_KEY"])
+# ヒント；あらゆるAI出力はpromptを前提にできる。会話させる場合でも、すべての出力の前に新たにpromptを追加できる。systemで役割を強制する必要はない。
 
 # AI1（質問） and AI2（回答）
 def generate_response(prompt, conversation_history):
@@ -45,13 +46,12 @@ def chat_between_gpts():
             ai1_prompt = "こんにちわ！会話を始めるために質問してください。なお挨拶は不要です。"
         else:
             ai1_prompt = "これまでの会話に基づき、別の質問をしてください。なお挨拶は不要です。"
-
         ai1_response = generate_response(ai1_prompt, conversation_history)
         conversation_history.append({"role": "assistant", "content": ai1_response})
         st.write(f"**質問AI:** {ai1_response}")
 
         # AI_2が質問に回答
-        ai2_prompt = f"以下の質問に具体的に答えてください: {ai1_response} ただし、あなたは質問に答えるだけであり、あなたから質問をしないでください。答えは簡潔にお願い。"
+        ai2_prompt = f"以下の質問に具体的に答えてください: {ai1_response} ただし、あなたは質問に答えるだけであり、質問はしないでください。答えは簡潔にお願い。"
         ai2_response = generate_response(ai2_prompt, conversation_history)
         #ai2_response = generate_response(ai1_response, conversation_history)
         conversation_history.append({"role": "assistant", "content": ai2_response})
@@ -59,7 +59,7 @@ def chat_between_gpts():
 
         current_turn += 1
     
-    # メインの会話が終了した後に要約を生成
+    # メインの会話が終了した後に、AI_3が要約を生成
     st.write("### 会話の要約")
     conversation_summary = summarize_conversation(conversation_history)
     st.write(conversation_summary)
