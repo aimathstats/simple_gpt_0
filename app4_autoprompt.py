@@ -60,14 +60,14 @@ while datetime.datetime.now() < endtime:
     with st.chat_message("user"): #質問
         stream2 = client.chat.completions.create(
             model=st.session_state["openai_model"],
-            messages=[
-                {"role": m["role"], "content": m["content"]}
-                for m in st.session_state.messages
-            ],
             #messages=[
-            #    {"role": "system", "content": template_user},
-            #    {"role": "user", "content": response}
+            #    {"role": m["role"], "content": m["content"]}
+            #    for m in st.session_state.messages
             #],
+            messages=[
+                {"role": "system", "content": template_user},
+                {"role": "user", "content": response}
+            ],
             stream=True,
             temperature = 1.0,
         )
