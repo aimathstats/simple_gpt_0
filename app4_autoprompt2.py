@@ -3,7 +3,7 @@ import streamlit as st
 import datetime
 import time
 
-st.title("自動おしゃべりAI　v2")
+st.title("自動おしゃべりAI with 第三AI　v2")
 client = OpenAI(api_key=st.secrets["OPENAI_API_KEY"])
 # ヒント；あらゆるAI出力はpromptを前提にできる。会話させる場合でも、すべての出力の前に新たにpromptを追加できる。systemで役割を強制する必要はない。
 
