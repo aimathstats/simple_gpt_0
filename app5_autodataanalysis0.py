@@ -49,7 +49,7 @@ def get_rand_page_from_category(category_url):
                 st.write(f"タイトル: {title}\n")
                 #st.write(f"URL: {article_url}\n")
                 st.write(f"内容: {content[:100]}...\n")  # 先頭の500文字を表示
-                summary_wiki()
+                summary_wiki(content)
             else:
                 st.write("記事の取得に失敗しました。")
         else:
@@ -57,9 +57,9 @@ def get_rand_page_from_category(category_url):
     else:
         st.write("カテゴリーページの取得に失敗しました。")
 
-def summary_wiki():
+def summary_wiki(cont):
     client = OpenAI(api_key=st.secrets["OPENAI_API_KEY"])
-    data2 = content
+    data2 = cont
 
     # template
     template = '''
