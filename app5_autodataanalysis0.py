@@ -22,7 +22,7 @@ def get_rand_wiki():
         content = soup.find('div', {'id': 'mw-content-text'}).text
         st.write(f"Title: {title}\n")
         st.write(f"URL: {random_url}\n")
-        st.write(f"Content: {content[:500]}...\n")  # 先頭の500文字を表示
+        st.write(f"Content: {content[:200]}...\n")  # 先頭の500文字を表示
     else:
         st.write("Failed to retrieve the page")
 
@@ -48,7 +48,7 @@ def get_rand_page_from_category(category_url):
                 
                 st.write(f"タイトル: {title}\n")
                 #st.write(f"URL: {article_url}\n")
-                st.write(f"内容: {content[:500]}...\n")  # 先頭の500文字を表示
+                st.write(f"内容: {content[:200]}...\n")  # 先頭の500文字を表示
             else:
                 st.write("記事の取得に失敗しました。")
         else:
@@ -162,11 +162,9 @@ if running:
     loop_running = True    
     while loop_running:
         get_rand_wiki()
-        category_url = "https://ja.wikipedia.org/wiki/Category:数学の定理"
-        get_rand_page_from_category(category_url)
-        
-        pdf_plot_analysis_ai()
-        
+        category_url = "https://ja.wikipedia.org/wiki/Category:数学のエポニム"
+        get_rand_page_from_category(category_url)        
+        #pdf_plot_analysis_ai()
         time.sleep(2)
         
         if stop:
