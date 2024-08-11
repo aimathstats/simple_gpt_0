@@ -34,7 +34,7 @@ for message in st.session_state.messages[1:]:
         st.markdown(message["content"])
 
 prompt = "こんにちは！"
-endtime = datetime.datetime.now() + datetime.timedelta(seconds=int(20))
+endtime = datetime.datetime.now() + datetime.timedelta(seconds=int(30))
 
 st.session_state.messages.append({"role": "user", "content": prompt})
 with st.chat_message("user"):
@@ -50,7 +50,7 @@ while datetime.datetime.now() < endtime:
                 for m in st.session_state.messages
             ],
             stream=True,
-            temperature = 0.5,
+            temperature = 1.0,
         )
         response = st.write_stream(stream)
     st.session_state.messages.append({"role": "assistant", "content": response})
@@ -68,7 +68,7 @@ while datetime.datetime.now() < endtime:
             #    {"role": "user", "content": response}
             #],
             stream=True,
-            temperature = 0.5,
+            temperature = 1.0,
         )
         prompt2 = st.write_stream(stream2)
     st.session_state.messages.append({"role": "user", "content": prompt2})
