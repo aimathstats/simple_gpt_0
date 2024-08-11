@@ -56,6 +56,37 @@ def get_rand_page_from_category(category_url):
     else:
         st.write("カテゴリーページの取得に失敗しました。")
 
+def summary():
+    client = OpenAI(api_key=st.secrets["OPENAI_API_KEY"])
+    data2 = content
+
+    # template
+    template = '''
+    あなたはwikipediaを要約する専門家です。
+    これから示す記事の内容を、重要なキーワードだけを用いて150字で要約してください。
+    __MSG__
+    '''
+    template = template.replace('__MSG__', data2.replace('"', ''))
+    
+    if "openai_model" not in st.session_state:
+        st.session_state["openai_model"] = "gpt-4o-mini"
+    
+    if "messages" not in st.session_state:
+        st.session_state.messages = []
+        st.session_state.messages = [{'role': 'system', 'content': template}]
+    
+    with st.chat_message("assistant"):
+        stream = client.chat.completions.create(
+            model = st.session_state["openai_model"],
+            messages = [
+                {"role": m["role"], "content": m["content"]}
+                for m in st.session_state.messages
+            ],
+            stream = True,
+        )
+        response = st.write_stream(stream)
+    st.session_state.messages.append({"role": "assistant", "content": response})
+
 
 def pdf_plot_analysis_ai():
     # PDFからのテーブル取得と可視化：都道府県別コロナ定点観測の折れ線
