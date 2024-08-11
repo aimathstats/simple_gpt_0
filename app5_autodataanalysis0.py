@@ -20,9 +20,11 @@ def get_rand_wiki():
         soup = BeautifulSoup(response.text, 'html.parser')
         title = soup.find('h1', {'id': 'firstHeading'}).text
         content = soup.find('div', {'id': 'mw-content-text'}).text
+        
         st.write(f"Title: {title}\n")
-        st.write(f"URL: {random_url}\n")
+        #st.write(f"URL: {random_url}\n")
         st.write(f"Content: {content[:200]}...\n")  # 先頭の500文字を表示
+        summary_wiki(content)
     else:
         st.write("Failed to retrieve the page")
 
@@ -48,7 +50,7 @@ def get_rand_page_from_category(category_url):
                 
                 st.write(f"タイトル: {title}\n")
                 #st.write(f"URL: {article_url}\n")
-                st.write(f"内容: {content[:100]}...\n")  # 先頭の500文字を表示
+                st.write(f"内容: {content[:200]}...\n")  # 先頭の500文字を表示
                 summary_wiki(content)
             else:
                 st.write("記事の取得に失敗しました。")
@@ -136,25 +138,13 @@ def pdf_plot_analysis_ai():
     '''
     template = template.replace('__MSG__', data2.replace('"', ''))
     
-    if "openai_model" not in st.session_state:
-        st.session_state["openai_model"] = "gpt-4o-mini"
-    
-    if "messages" not in st.session_state:
-        st.session_state.messages = []
-        st.session_state.messages = [{'role': 'system', 'content': template}]
-    
     with st.chat_message("assistant"):
         stream = client.chat.completions.create(
-            model = st.session_state["openai_model"],
-            messages = [
-                {"role": m["role"], "content": m["content"]}
-                for m in st.session_state.messages
-            ],
+            model = "gpt-4o-mini",
+            messages = [{'role': 'system', 'content': template}],
             stream = True,
-            temperature = 0.5,
         )
         response = st.write_stream(stream)
-    st.session_state.messages.append({"role": "assistant", "content": response})
     
     # 追加入力されたら、内容をpromptに格納(入力までは待機)
     #if prompt := st.chat_input("質問はありますか？"):
@@ -182,11 +172,11 @@ stop = st.button("終了")
 if running:
     loop_running = True    
     while loop_running:
-        #get_rand_wiki()
+        get_rand_wiki()
         category_url = "https://ja.wikipedia.org/wiki/Category:数学のエポニム"
         get_rand_page_from_category(category_url) 
-        #pdf_plot_analysis_ai()
-        time.sleep(2)
+        pdf_plot_analysis_ai()
+        time.sleep(5)
         
         if stop:
             loop_running = False
