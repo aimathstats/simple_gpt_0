@@ -34,7 +34,7 @@ def chat_between_gpts():
         st.write(f"**質問AI:** {ai1_response}")
 
         # AI_2が質問に回答
-        ai2_prompt = f"以下の質問に具体的に答えてください: {ai1_response}"
+        ai2_prompt = f"以下の質問に具体的に答えてください: {ai1_response} ただし、質問に答えるだけで、あなたは質問をしないでください。"
         ai2_response = generate_response(ai2_prompt, conversation_history)
         #ai2_response = generate_response(ai1_response, conversation_history)
         conversation_history.append({"role": "assistant", "content": ai2_response})
