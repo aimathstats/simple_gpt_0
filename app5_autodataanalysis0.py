@@ -67,6 +67,8 @@ def summary_wiki(cont):
     template = '''
     あなたはwikipediaの記事全体を要約する専門家です。
     これから示す記事の内容を、重要なキーワードを用いて、簡潔に150字で要約してください。
+    回答文はst.streamで表示することを踏まえてください。
+    なお、回答にlatexの数式が含まれる場合は、st.latexで表示できるようにして。
     __MSG__
     '''
     template = template.replace('__MSG__', data2.replace('"', ''))    
