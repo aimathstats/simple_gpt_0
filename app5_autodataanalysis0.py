@@ -151,7 +151,7 @@ stop = st.button("終了")
 if running:
     loop_running = True    
     while loop_running:
-        get_rand_wiki()
+        #get_rand_wiki()
         category_url = "https://ja.wikipedia.org/wiki/Category:数学のエポニム"
         get_rand_page_from_category(category_url) 
         #pdf_plot_analysis_ai()
