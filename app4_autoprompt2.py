@@ -20,7 +20,7 @@ def generate_response(prompt, conversation_history):
 def chat_between_gpts():
     # 初期設定
     conversation_history = []
-    max_turns = st.sidebar.slider("Number of turns", min_value=1, max_value=10, value=5)
+    max_turns = st.sidebar.slider("Number of turns", min_value=1, max_value=10, value=3)
     current_turn = 1
 
     while current_turn <= max_turns:
@@ -58,6 +58,7 @@ def summarize_conversation(conversation_history):
     return summary_response.choices[0].message.content
 
 chat_between_gpts()
+st.write(current_turn)
 
 # メインの会話が終了した後に要約を生成
 if current_turn > max_turns:
