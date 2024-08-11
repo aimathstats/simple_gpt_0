@@ -194,7 +194,8 @@ if running:
     while loop_running:
         #get_rand_wiki()
         category_url = "https://ja.wikipedia.org/wiki/Category:数学のエポニム"
-        get_rand_page_from_category(category_url)        
+        get_rand_page_from_category(category_url) 
+        summary()
         #pdf_plot_analysis_ai()
         time.sleep(2)
         
