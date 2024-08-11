@@ -48,9 +48,8 @@ def get_rand_page_from_category(category_url):
                 
                 st.write(f"タイトル: {title}\n")
                 #st.write(f"URL: {article_url}\n")
-                st.write(f"内容: {content[:500]}...\n")  # 先頭の500文字を表示
-                st.write(content)
-                summary(content)
+                st.write(f"内容: {content[:100]}...\n")  # 先頭の500文字を表示
+                #summary(content)
             else:
                 st.write("記事の取得に失敗しました。")
         else:
