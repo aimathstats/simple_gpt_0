@@ -39,7 +39,7 @@ st.session_state.messages.append({"role": "user", "content": prompt})
 with st.chat_message("user"):
     st.markdown(prompt)
 
-endtime = datetime.datetime.now() + datetime.timedelta(seconds=int(30))
+endtime = datetime.datetime.now() + datetime.timedelta(seconds=int(40))
 
 while datetime.datetime.now() < endtime:
     time.sleep(1)
