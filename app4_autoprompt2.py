@@ -27,9 +27,9 @@ def chat_between_gpts():
     while current_turn <= max_turns:
         # AI_1が質問を生成
         if current_turn == 1:
-            ai1_prompt = "こんにちわ！会話を始めるために質問してくれる?"
+            ai1_prompt = "こんにちわ！会話を始めるために質問してくれる？なお、挨拶は一切不要です。"
         else:
-            ai1_prompt = "私たちの会話に基づいて、別の質問をしてください。"
+            ai1_prompt = "私たちの会話に基づいて、別の質問をしてください。なお、挨拶は一切不要です。"
 
         ai1_response = generate_response(ai1_prompt, conversation_history)
         conversation_history.append({"role": "assistant", "content": ai1_response})
