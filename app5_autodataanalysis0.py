@@ -49,6 +49,7 @@ def get_rand_page_from_category(category_url):
                 st.write(f"タイトル: {title}\n")
                 #st.write(f"URL: {article_url}\n")
                 #st.write(f"内容: {content[:200]}...\n")  # 先頭の500文字を表示
+                summary()
             else:
                 st.write("記事の取得に失敗しました。")
         else:
@@ -56,7 +57,7 @@ def get_rand_page_from_category(category_url):
     else:
         st.write("カテゴリーページの取得に失敗しました。")
 
-def summary():
+def summary(content):
     client = OpenAI(api_key=st.secrets["OPENAI_API_KEY"])
     data2 = content
 
@@ -195,7 +196,6 @@ if running:
         #get_rand_wiki()
         category_url = "https://ja.wikipedia.org/wiki/Category:数学のエポニム"
         get_rand_page_from_category(category_url) 
-        summary()
         #pdf_plot_analysis_ai()
         time.sleep(2)
         
