@@ -3,6 +3,7 @@ import streamlit as st
 import datetime
 import time
 
+st.title("自動おしゃべりAI　v2")
 client = OpenAI(api_key=st.secrets["OPENAI_API_KEY"])
 
 def generate_response(prompt, conversation_history):
@@ -42,5 +43,4 @@ def chat_between_gpts():
 
         current_turn += 1
 
-st.title("GPT to GPT Conversation")
 chat_between_gpts()
