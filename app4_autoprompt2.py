@@ -43,4 +43,27 @@ def chat_between_gpts():
 
         current_turn += 1
 
+def summarize_conversation(conversation_history):
+    # すべての会話履歴を一つの文字列に結合
+    conversation_text = "\n".join([f"{entry['role']}: {entry['content']}" for entry in conversation_history])
+
+    # AI_3による要約を生成
+    summary_prompt = f"以下の会話内容を要約してください:\n{conversation_text}"
+    summary_response = client.chat.completions.create(
+        model="gpt-4o-mini",
+        messages=[{"role": "user", "content": summary_prompt}],
+        max_tokens=200,
+        temperature=0.5  # 一貫性のある要約を得るために温度を調整
+    )
+    return summary_response.choices[0].message.content
+
 chat_between_gpts()
+
+# メインの会話が終了した後に要約を生成
+if current_turn > max_turns:
+    #st.write("会話はここまで。")
+    st.write("### 会話の要約")
+    conversation_summary = summarize_conversation(conversation_history)
+    st.write(conversation_summary)
+
+
