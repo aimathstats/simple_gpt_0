@@ -20,10 +20,9 @@ def get_rand_wiki():
         soup = BeautifulSoup(response.text, 'html.parser')
         title = soup.find('h1', {'id': 'firstHeading'}).text
         content = soup.find('div', {'id': 'mw-content-text'}).text
-        
         st.write(f"Title: {title}\n")
         #st.write(f"URL: {random_url}\n")
-        st.write(f"Content: {content[:200]}...\n")  # 先頭の500文字を表示
+        st.write(f"Content: {content[:100]}...\n")  # 先頭の500文字を表示
         summary_wiki(content)
     else:
         st.write("Failed to retrieve the page")
@@ -50,7 +49,7 @@ def get_rand_page_from_category(category_url):
                 
                 st.write(f"タイトル: {title}\n")
                 #st.write(f"URL: {article_url}\n")
-                st.write(f"内容: {content[:200]}...\n")  # 先頭の500文字を表示
+                st.write(f"内容: {content[:100]}...\n")  # 先頭の500文字を表示
                 summary_wiki(content)
             else:
                 st.write("記事の取得に失敗しました。")
@@ -72,13 +71,13 @@ def summary_wiki(cont):
     template = template.replace('__MSG__', data2.replace('"', ''))
     st.session_state.messages = []
     
-    with st.chat_message("assistant"):
-        stream = client.chat.completions.create(
-            model = "gpt-4o-mini",
-            messages = [{'role': 'system', 'content': template}],
-            stream = True,
-        )
-        response = st.write_stream(stream)
+    #with st.chat_message("assistant"):
+    stream = client.chat.completions.create(
+        model = "gpt-4o-mini",
+        messages = [{'role': 'system', 'content': template}],
+        stream = True,
+    )
+    response = st.write_stream(stream)
 
 def pdf_plot_analysis_ai():
     # PDFからのテーブル取得と可視化：都道府県別コロナ定点観測の折れ線
@@ -138,37 +137,17 @@ def pdf_plot_analysis_ai():
     '''
     template = template.replace('__MSG__', data2.replace('"', ''))
     
-    with st.chat_message("assistant"):
-        stream = client.chat.completions.create(
-            model = "gpt-4o-mini",
-            messages = [{'role': 'system', 'content': template}],
-            stream = True,
-        )
-        response = st.write_stream(stream)
-    
-    # 追加入力されたら、内容をpromptに格納(入力までは待機)
-    #if prompt := st.chat_input("質問はありますか？"):
-    #    st.session_state.messages.append({"role": "user", "content": prompt})
-    #    with st.chat_message("user"):
-    #        st.markdown(prompt)
-    #    with st.chat_message("assistant"):
-    #        stream = client.chat.completions.create(
-    #            model = st.session_state["openai_model"],
-    #            messages = [
-    #                {"role": m["role"], "content": m["content"]}
-    #                for m in st.session_state.messages
-    #            ],
-    #            stream = True,
-    #            temperature = 0.5,
-    #        )
-    #        response = st.write_stream(stream)   
-    #    st.session_state.messages.append({"role": "assistant", "content": response})
-
+    #with st.chat_message("assistant"):
+    stream = client.chat.completions.create(
+        model = "gpt-4o-mini",
+        messages = [{'role': 'system', 'content': template}],
+        stream = True,
+    )
+    response = st.write_stream(stream)
 
 #### while part ####
 running = st.button("開始")
 stop = st.button("終了")
-
 if running:
     loop_running = True    
     while loop_running:
@@ -176,10 +155,8 @@ if running:
         category_url = "https://ja.wikipedia.org/wiki/Category:数学のエポニム"
         get_rand_page_from_category(category_url) 
         pdf_plot_analysis_ai()
-        time.sleep(5)
-        
+        time.sleep(5)        
         if stop:
             loop_running = False
-            st.write("終了しました。")
             break
 
