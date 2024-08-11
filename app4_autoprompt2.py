@@ -11,7 +11,7 @@ def generate_response(prompt, conversation_history):
         messages=conversation_history + [{"role": "user", "content": prompt}],
         max_tokens=150,
         #temperature=0.7,
-        temperature=0.5  # 回答の一貫性を高めるために温度を下げる
+        temperature=0.5,  # 回答の一貫性を高めるために温度を下げる
         stop=None,
     )
     return response.choices[0].message.content
