@@ -65,7 +65,7 @@ while datetime.datetime.now() < endtime:
             #],
             messages=[
                 {"role": "system", "content": template_user},
-                {"role": "user", "content": response}
+                {"role": "assistant", "content": response}
             ],
             stream=True,
             temperature = 0.5,
