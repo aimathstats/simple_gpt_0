@@ -66,7 +66,7 @@ def leader_task(conversation_history):
     return response
 
 def run_project():
-    st.title("5者AIによる自動共同研究")
+    st.title("5者AI自動共同研究")
     conversation_history = []
     num_iterations = st.sidebar.slider("対話の繰り返し回数", min_value=1, max_value=5, value=2)
 
