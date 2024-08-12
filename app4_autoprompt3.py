@@ -17,7 +17,7 @@ def generate_response(role, prompt, conversation_history):
         max_tokens=150,
         temperature=0.7
     )
-    return response.choices[0].message["content"]
+    return response.choices[0].message.content
 
 def ai_2_task(conversation_history):
     prompt = "日本国内で2泊3日で訪れたい旅行先の候補を5つ挙げてください。出発地は京都です。"
