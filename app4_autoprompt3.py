@@ -60,7 +60,7 @@ def iterate_conversation_ai_4_ai_5(conversation_history, ai_3_response, num_iter
     return ai_5_response
 
 def leader_task(conversation_history):
-    prompt = "ペアAとペアBの会話と結果を基に、最も費用が低くなるプランを決定してください。"
+    prompt = "これまでの会話と結果を基に、最も費用が低くなるプランを決定してください。"
     response = generate_response("リーダー", prompt, conversation_history)
     #st.write(f"**リーダー:** {response}")
     return response
