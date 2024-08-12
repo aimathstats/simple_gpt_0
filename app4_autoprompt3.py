@@ -8,8 +8,8 @@ def generate_response(role, prompt, conversation_history):
     response = client.chat.completions.create(
         model="gpt-4o-mini", 
         messages=conversation_history + [{"role": "user", "content": prompt}],
-        max_tokens=500,
-        temperature=0.5
+        max_tokens=1000,
+        temperature=0.7
     )
     return response.choices[0].message.content
 
@@ -42,19 +42,21 @@ def ai_5_task(ai_4_response, conversation_history):
     return response
 
 def iterate_conversation_ai_2_ai_3(conversation_history, num_iterations):
-    ai_2_response = ai_2_task(conversation_history)
+    #ai_2_response = ai_2_task(conversation_history)
     for i in range(num_iterations):
         st.write(f"**ペアAの対話 - ラウンド {i+1}**")
+        ai_2_response = ai_2_task(conversation_history) # add
         ai_3_response = ai_3_task(ai_2_response, conversation_history)
-        ai_2_response = ai_2_task(conversation_history)
+        #ai_2_response = ai_2_task(conversation_history)
     return ai_3_response
 
 def iterate_conversation_ai_4_ai_5(conversation_history, ai_3_response, num_iterations):
-    ai_4_response = ai_4_task(ai_3_response, conversation_history)
+    #ai_4_response = ai_4_task(ai_3_response, conversation_history)
     for i in range(num_iterations):
         st.write(f"**ペアBの対話 - ラウンド {i+1}**")
+        ai_4_response = ai_4_task(ai_3_response, conversation_history) # add
         ai_5_response = ai_5_task(ai_4_response, conversation_history)
-        ai_4_response = ai_4_task(ai_3_response, conversation_history)
+        #ai_4_response = ai_4_task(ai_3_response, conversation_history)
     return ai_5_response
 
 def leader_task(conversation_history):
@@ -64,7 +66,7 @@ def leader_task(conversation_history):
     return response
 
 def run_project():
-    st.title("自動対話による旅行プラン立案　5者AI")
+    st.title("5者AIによる自動共同研究")
 
     # 会話履歴を保持
     conversation_history = []
