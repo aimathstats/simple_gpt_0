@@ -1,21 +1,15 @@
-#import openai
-import streamlit as st
 from openai import OpenAI
-
-# OpenAI APIキーを設定
-#openai.api_key = "YOUR_API_KEY"
+import streamlit as st
 
 # OpenAIクライアントを初期化
-#client = openai.ChatCompletion
 client = OpenAI(api_key=st.secrets["OPENAI_API_KEY"])
 
 def generate_response(role, prompt, conversation_history):
-    #response = client.create(
     response = client.chat.completions.create(
         model="gpt-4o-mini", 
         messages=conversation_history + [{"role": "user", "content": prompt}],
         max_tokens=500,
-        temperature=0.7
+        temperature=0.5
     )
     return response.choices[0].message.content
 
@@ -66,23 +60,23 @@ def iterate_conversation_ai_4_ai_5(conversation_history, ai_3_response, num_iter
 def leader_task(conversation_history):
     prompt = "ペアAとペアBの会話と結果を基に、最も費用が低くなるプランを決定してください。"
     response = generate_response("リーダー", prompt, conversation_history)
-    st.write(f"**リーダー:** {response}")
+    #st.write(f"**リーダー:** {response}")
     return response
 
 def run_project():
-    st.title("AIによる旅行プランの立案")
+    st.title("自動対話による旅行プラン立案　5者AI")
 
     # 会話履歴を保持
     conversation_history = []
 
     # 対話の繰り返し回数を選択するスライダー
-    num_iterations = st.sidebar.slider("対話の繰り返し回数", min_value=1, max_value=5, value=3)
+    num_iterations = st.sidebar.slider("対話の繰り返し回数", min_value=1, max_value=5, value=2)
 
-    # ペアAのタスク (選択した回数の対話)
+    # ペアAのタスク
     st.subheader("ペアAの活動")
     ai_3_response = iterate_conversation_ai_2_ai_3(conversation_history, num_iterations)
 
-    # ペアBのタスク (選択した回数の対話)
+    # ペアBのタスク
     st.subheader("ペアBの活動")
     ai_5_response = iterate_conversation_ai_4_ai_5(conversation_history, ai_3_response, num_iterations)
 
