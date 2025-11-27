@@ -9,6 +9,27 @@ client = OpenAI(api_key=st.secrets["OPENAI_API_KEY"])
 st.title("翻訳こんにゃく GPT")
 text = st.text_area("翻訳したい文章を入力してください")
 
+def response_stream():
+    """Responses API のストリームを、テキストだけ順に yield するジェネレータ"""
+    stream = client.responses.create(
+        model="gpt-4o-mini",
+        input = [
+            {"role": "user", "content":  f"Translate this into Japanese:\n{text}"}
+        ],
+        stream = True,
+        temperature = 0.5,
+    )
+
+    # Responses API は「イベント」が飛んでくるので、
+    # そのうちテキスト差分だけを取り出して流す
+    for event in stream:
+        if event.type == "response.output_text.delta":
+            # delta はテキストの差分（str）
+            yield event.delta
+
+# st.write_stream には「ジェネレータ（または関数）」を渡す
+assistant_text = st.write_stream(response_stream)
+
 if st.button("翻訳する"):
     stream = client.responses.create(
         model="gpt-4o-mini",
