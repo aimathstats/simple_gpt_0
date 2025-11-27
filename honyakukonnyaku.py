@@ -4,7 +4,30 @@ import pandas as pd
 from audio_recorder_streamlit import audio_recorder
 
 client = OpenAI(api_key=st.secrets["OPENAI_API_KEY"])
+###############################################
+# 新コード2025/11
+st.title("翻訳こんにゃく GPT")
+text = st.text_area("翻訳したい文章を入力してください")
 
+if st.button("翻訳する"):
+    stream = client.responses.create(
+        model="gpt-4o-mini",
+        input=[
+            {"role": "user", "content": f"Translate this into Japanese:\n{text}"}
+        ],
+        stream=True
+    )
+
+    result = ""
+    placeholder = st.empty()
+
+    for event in stream:
+        if event.type == "response.output_text.delta":
+            result += event.delta
+            placeholder.write(result)
+
+############################################### 
+# 旧コード2024/08
 st.set_page_config(page_title="honyaku konnyaku", page_icon=":material/globe_asia:")
 st.title("ほんやくコンニャク")
 lang = st.radio("何語に？", ["英語", "フランス語", "ドイツ語", "イタリア語", "ロシア語", "中国語", "ハングル語", "ヒンディー語", "タイ語"], horizontal = True)
