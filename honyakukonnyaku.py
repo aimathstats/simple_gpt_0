@@ -17,7 +17,14 @@ if st.button("翻訳する"):
         ],
         stream=True
     )
-    response = st.write_stream(stream)
+    #response = st.write_stream(stream)
+    for event in stream:
+        if event.type == "response.output_text.delta":
+            # delta はテキストの差分（str）
+            yield event.delta
+
+# st.write_stream には「ジェネレータ（または関数）」を渡す
+assistant_text = st.write_stream(response_stream)
 
 ############################################### 
 # 旧コード2024/08
