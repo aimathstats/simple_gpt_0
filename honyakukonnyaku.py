@@ -45,7 +45,7 @@ if st.button("翻訳する"):
             yield event.delta
 
 # st.write_stream には「ジェネレータ（または関数）」を渡す
-assistant_text = st.write_stream(response_stream)
+#assistant_text = st.write_stream(response_stream)
 
 ############################################### 
 # 旧コード2024/08
