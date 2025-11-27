@@ -23,7 +23,7 @@ def response_stream():
     # Responses API は「イベント」が飛んでくるので、
     # そのうちテキスト差分だけを取り出して流す
     for event in stream:
-        if event.type == "response.output_text.delta":
+        if event.type == "stream.output_text.delta":
             # delta はテキストの差分（str）
             #yield event.delta
 
