@@ -17,14 +17,7 @@ if st.button("翻訳する"):
         ],
         stream=True
     )
-
-    result = ""
-    placeholder = st.empty()
-
-    for event in stream:
-        if event.type == "response.output_text.delta":
-            result += event.delta
-            placeholder.write(result)
+    response = st.write_stream(stream)
 
 ############################################### 
 # 旧コード2024/08
