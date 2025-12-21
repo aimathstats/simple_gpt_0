@@ -34,36 +34,36 @@ if prompt := st.chat_input("What is up?"):
     #    response = st.write_stream(stream)
 
     ##### new code for responses API without stream output (2025/12/21)
-    #with st.chat_message("assistant"):
-    #    r = client.responses.create(
-    #        model=st.session_state["openai_model"],
-    #        input=[
-    #            {"role": m["role"], "content": m["content"]}
-    #            for m in st.session_state.messages
-    #        ],
-    #    )
-    #    response = r.output_text  # 生成された最終テキスト
-    #    st.markdown(response)
-    ##### stream (25/12/21)
-    def response_stream():
-        stream = client.responses.create(
+    with st.chat_message("assistant"):
+        r = client.responses.create(
             model=st.session_state["openai_model"],
             input=[
                 {"role": m["role"], "content": m["content"]}
                 for m in st.session_state.messages
             ],
-            stream=True,
         )
-        for event in stream:
-            etype = getattr(event, "type", None) or event.get("type")
-            if etype == "response.output_text.delta":
-                delta = getattr(event, "delta", None) or event.get("delta", "")
-                if delta:
-                    yield delta
+        response = r.output_text  # 生成された最終テキスト
+        st.markdown(response)
 
-    with st.chat_message("assistant"):
-        response = st.write_stream(response_stream())
+    ##### stream version (25/12/21)
+    #def response_stream():
+    #    stream = client.responses.create(
+    #        model=st.session_state["openai_model"],
+    #        input=[
+    #            {"role": m["role"], "content": m["content"]}
+    #            for m in st.session_state.messages
+    #        ],
+    #        stream=True,
+    #    )
+    #    for event in stream:
+    #        etype = getattr(event, "type", None) or event.get("type")
+    #        if etype == "response.output_text.delta":
+    #            delta = getattr(event, "delta", None) or event.get("delta", "")
+    #            if delta:
+    #                yield delta
+    #
+    #with st.chat_message("assistant"):
+    #    response = st.write_stream(response_stream())
     ####
   
     st.session_state.messages.append({"role": "assistant", "content": response})
-
