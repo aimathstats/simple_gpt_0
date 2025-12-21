@@ -21,15 +21,30 @@ if prompt := st.chat_input("What is up?"):
     with st.chat_message("user"):
         st.markdown(prompt)
 
+    #### old code (chat.completions.create)
+    #with st.chat_message("assistant"):
+    #    stream = client.chat.completions.create(
+    #        model=st.session_state["openai_model"],
+    #        messages=[
+    #            {"role": m["role"], "content": m["content"]}
+    #            for m in st.session_state.messages
+    #        ],
+    #        stream=True,
+    #    )
+    #    response = st.write_stream(stream)
+
+    ##### new code for responses API without stream output (2025/12/21)
     with st.chat_message("assistant"):
-        stream = client.chat.completions.create(
+        r = client.responses.create(
             model=st.session_state["openai_model"],
-            messages=[
+            input=[
                 {"role": m["role"], "content": m["content"]}
                 for m in st.session_state.messages
             ],
-            stream=True,
         )
-        response = st.write_stream(stream)
+        response = r.output_text  # 生成された最終テキスト
+        st.markdown(response)
+    #####
+    
     st.session_state.messages.append({"role": "assistant", "content": response})
 
